@@ -1,0 +1,7 @@
+#summary How to get the source.
+
+This code is [http://github.com/magro/memcached-session-manager/tree hosted in github] and can be checked out using the following command:
+
+{{{git clone git://github.com/magro/memcached-session-manager.git}}}
+
+You can browse or fork the repo at github.
