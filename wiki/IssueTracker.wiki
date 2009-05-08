@@ -1,0 +1,6 @@
+#summary Where to track issues
+
+Issues are tracked in the [http://github.com/magro/memcached-session-manager/issues github issue tracker].
+
+Some issues were tracked previously in the google-code issue tracker:
+[http://code.google.com/p/memcached-session-manager/issues/list?can=1&q=&colspec=ID+Type+Status+Priority+Milestone+Owner+Summary&cells=tiles former issues]
