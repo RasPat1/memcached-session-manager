@@ -49,3 +49,6 @@ _failoverNodes_ (optional)
 <br/>
 _requestUriIgnorePattern_ (optional)
  This attribute contains a regular expression for request URIs, that shall not trigger a session backup. If static resources like css, javascript, images etc. are delivered by the same tomcat and the same web application context these requests will also pass the memcached-session-manager. However, as these requests should not change anything in a http session, they should also not trigger a session backup. So you should check if any static resources are delivered by tomcat and in this case you should exclude them by using this attribute. The {{{requestUriIgnorePattern}}} must follow the java regex [http://java.sun.com/javase/6/docs/api/java/util/regex/Pattern.html Pattern].
+
+== Logging ==
+As the memcached-session-manager uses [http://code.google.com/p/spymemcached/ spymemcached] the [http://code.google.com/p/spymemcached/wiki/Logging logging hints of spymemcached] might be interesting to you.
