@@ -1,0 +1,11 @@
+#labels Phase-Support,Phase-Design
+=== Why is it not implemented as [http://tomcat.apache.org/tomcat-6.0-doc/api/org/apache/catalina/Store.html Store] for tomcats [http://tomcat.apache.org/tomcat-6.0-doc/api/org/apache/catalina/session/PersistentManagerBase.html PersistentManagerBase]? ===
+
+The [http://tomcat.apache.org/tomcat-6.0-doc/api/org/apache/catalina/Store.html Store] interface defines methods _getSize()_, _keys()_ and _clear()_ - these cannot be implemented with memcached.
+
+Also [http://tomcat.apache.org/tomcat-6.0-doc/api/org/apache/catalina/session/PersistentManagerBase.html PersistentManagerBase] backups all sessions in batches (_processMaxIdleBackups()_ is called by the background thread after active sessions have been checked for expiration). If each session shall be up to date in the store, all sessions would be sent to memcached again and again.
+
+The memcached-session-manager instead backups a session after the request was finished, so only sessions that were (potentially) modified are sent to memcached.
+
+=== Isn't memcached a cache and might drop sessions ===
+TBD
