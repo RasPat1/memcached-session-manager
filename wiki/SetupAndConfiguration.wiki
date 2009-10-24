@@ -1,3 +1,4 @@
+#labels Featured,Phase-Deploy
 This page shows what's necessary to get the memcached-session-manager up and running.
 
 = Introduction =
@@ -21,13 +22,28 @@ Tomcat-1 (t1) will primarily store it's sessions in memcached-2 (m2). Only if m2
 
 So what needs to be done for this?
 
-== Configure tomcat 1 ==
+== Configure tomcat ==
   * Drop the memcached-session-manager-1.0.jar and the memcached-2.4.jar (spymemcached) in {{{$CATALINA_HOME/lib/}}} (memcached-session-manager is in version 1.0 and spymemcached is 2.4 at the time of this writing)
-  * Add the following {{{manager}}} configuration to the appropriate {{{<context>}}} element in the {{{$CATALINA_HOME/conf/server.xml}}}:
+  * Configure the appropriate context in your {{{$CATALINA_HOME/conf/server.xml}}} so that it contains the {{{Manager}}} configuration for the memcached-session-manager, like this:
 {{{
-<Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
+<Context path="/foo">
+  <Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
     memcachedNodes="n1:localhost:11211 n2:localhost:11212"
     failoverNodes="n2"
-    requestUriIgnorePattern=".*\.png$"
+    requestUriIgnorePattern=".*\.(png|gif|jpg|css|js)$"
     />
+</Context>
 }}}
+
+That's all what needs to be done for the first tomcat. The second tomcat just needs another failover node, you should set the failoverNode to {{{n1}}} for tomcat-2.
+
+== MemcachedBackupSessionManager configuration attributes ==
+
+_memcachedNodes_ (required)
+  This attribute must contain all memcached nodes you have running. Each memcached node is defined as {{{<id>:<host>:<port>}}}. Several definitions are separated by space.<br/>
+<br/>
+_failoverNodes_ (optional)
+ This attribute must contain the ids of the memcached nodes, that shall not be used by this tomcat for session backup, but only if no other memcached nodes are available. Therefore, you should list those memcached nodes, that are running on the same machine as this tomcat. Several memcached node ids are separated by space.<br/>
+<br/>
+_requestUriIgnorePattern_ (optional)
+ This attribute contains a regular expression for request URIs, that shall not trigger a session backup. If static resources like css, javascript, images etc. are delivered by the same tomcat and the same web application context these requests will also pass the memcached-session-manager. However, as these requests should not change anything in a http session, they should also not trigger a session backup. So you should check if any static resources are delivered by tomcat and in this case you should exclude them by using this attribute. The regular expression pattern must follow the java regexp [http://java.sun.com/javase/6/docs/api/java/util/regex/Pattern.html Pattern].
