@@ -23,7 +23,7 @@ Tomcat-1 (t1) will primarily store it's sessions in memcached-2 (m2). Only if m2
 So what needs to be done for this?
 
 == Configure tomcat ==
-  * Drop the memcached-session-manager-1.0.jar and the [http://spymemcached.googlecode.com/files/memcached-2.4.jar memcached-2.4.jar] (spymemcached) in {{{$CATALINA_HOME/lib/}}} (memcached-session-manager is in version 1.0 and spymemcached is 2.4 at the time of this writing)
+  * Drop the [http://memcached-session-manager.googlecode.com/files/memcached-session-manager-1.0.jar memcached-session-manager-1.0.jar] and the [http://spymemcached.googlecode.com/files/memcached-2.4.jar memcached-2.4.jar] (spymemcached) in {{{$CATALINA_HOME/lib/}}} (you can also just download [http://memcached-session-manager.googlecode.com/files/memcached-session-manager-1.0-bin.zip memcached-session-manager-1.0-bin.zip] and unzip, it contains both jars)
   * Configure the appropriate context in your {{{$CATALINA_HOME/conf/server.xml}}} so that it contains the {{{Manager}}} configuration for the memcached-session-manager, like this:
 {{{
 <Context path="/foo">
