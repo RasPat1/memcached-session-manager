@@ -39,7 +39,7 @@ So what needs to be done for this?
 
 Now you have finished the configuration of your first tomcat. For the second tomcat you just need to change the failover node, you should set this to {{{n1}}} for tomcat-2.
 
-== MemcachedBackupSessionManager configuration attributes ==
+== `MemcachedBackupSessionManager` configuration attributes ==
 
 _memcachedNodes_ (required)
   This attribute must contain all memcached nodes you have running. Each memcached node is defined as {{{<id>:<host>:<port>}}}. Several definitions are separated by space.<br/>
