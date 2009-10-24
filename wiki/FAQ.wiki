@@ -9,3 +9,7 @@ The memcached-session-manager instead backups a session after the request was fi
 
 === Isn't memcached a cache and might drop sessions ===
 TBD
+
+
+=== How are memcached nodes selected for session backup? ===
+When a new session is created the memcached-session-manager does a simple round robin (random) to select the memcached node where to backup this session.
