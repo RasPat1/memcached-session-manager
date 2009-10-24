@@ -1,0 +1,33 @@
+This page shows what's necessary to get the memcached-session-manager up and running.
+
+= Introduction =
+
+For the most simple integration you just need to have a tomcat and a memcached installed.
+In your production environment you probably will have several tomcats and you should also have several memcached nodes available, on different pieces of hardware. You need to use sticky sessions, as the memcached-session-manager is designed just for sticky-sessions. Therefore, your load-balancer also has to be configured to make sessions sticky.
+
+The following description assumes, that you have two instances of tomcat and two instances of memcached installed.
+
+Tomcat-1 (t1) will primarily store it's sessions in memcached-2 (m2). Only if m2 is not available, it will store it's sessions in memcached-1 (m1). This is desirable, if t1 and m1 are running on one machine, and tomcat-2 (t2) and m2 are running on another machine. In this case, even the first machine (serving t1 and m1) could crash completely and no session would be lost - they could be served by t2 and m2. The following really nice ASCII art shows this setup.
+
+{{{
+<t1>   <t2>
+  . \ / .
+  .  X  .
+  . / \ .
+<m1>   <m2>
+}}}
+
+= Details =
+
+So what needs to be done for this?
+
+== Configure tomcat 1 ==
+  * Drop the memcached-session-manager-1.0.jar and the memcached-2.4.jar (spymemcached) in {{{$CATALINA_HOME/lib/}}} (memcached-session-manager is in version 1.0 and spymemcached is 2.4 at the time of this writing)
+  * Add the following {{{manager}}} configuration to the appropriate {{{<context>}}} element in the {{{$CATALINA_HOME/conf/server.xml}}}:
+{{{
+<Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
+    memcachedNodes="n1:localhost:11211 n2:localhost:11212"
+    failoverNodes="n2"
+    requestUriIgnorePattern=".*\.png$"
+    />
+}}}
