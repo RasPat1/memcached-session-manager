@@ -35,7 +35,9 @@ So what needs to be done for this?
 </Context>
 }}}
 
-That's all what needs to be done for the first tomcat. The second tomcat just needs another failover node, you should set the failoverNode to {{{n1}}} for tomcat-2.
+(This assumes, that you have running two memcached nodes on localhost, one on port 11211 and another one on port 11212)
+
+Now you have finished the configuration of your first tomcat. For the second tomcat you just need to change the failover node, you should set this to {{{n1}}} for tomcat-2.
 
 == MemcachedBackupSessionManager configuration attributes ==
 
