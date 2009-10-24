@@ -7,9 +7,11 @@ Also [http://tomcat.apache.org/tomcat-6.0-doc/api/org/apache/catalina/session/Pe
 
 The memcached-session-manager instead backups a session after the request was finished, so only sessions that were (potentially) modified are sent to memcached.
 
-=== Isn't memcached a cache and might drop sessions ===
-TBD
-
-
 === How are memcached nodes selected for session backup? ===
 When a new session is created the memcached-session-manager does a simple round robin (random) to select the memcached node where to backup this session.
+
+=== What's the format of the session id when using the memcached-session-manager? ===
+The memcached node is encoded in the session id like this: {{{<sessionId>-<node>[.<jvmRoute>]}}} (e.g. {{{602F7397FBE4D9932E59A9D0E52FE178-n1}}} without a jvm route, with the jvm route {{{602F7397FBE4D9932E59A9D0E52FE178-n1.tomcat0}}})
+
+=== Isn't memcached a cache and might drop sessions ===
+TBD
