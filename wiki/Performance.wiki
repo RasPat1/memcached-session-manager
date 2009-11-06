@@ -24,4 +24,4 @@ ab -n 10000 -c 200 http://localhost:8080/statefull
 
 (10000 requests, 200 concurrent)
 
-http://chart.apis.google.com/chart?cht=bhs&chtt=requests/s&chs=250x100&chd=t:1981.27,40|1172.03&chxt=y,x&chxl=0:|stateless%20(xstream)|session%20(xstream)|1:|0|500|1000|1500|2000&foo=bar.png
+http://chart.apis.google.com/chart?cht=bhg&chdl=no%20msm|msm(java)|msm(xstream)&chco=4D89D9,C6D9FD&chdlp=b&chtt=requests/s&chs=400x200&chbh=a&chd=t:1981.27,1172.03|1999.00,1200.00&chds=0,2000&chxt=y,x&chxl=0:|stateless|session|stateless|1:|0|500|1000|1500|2000&foo=bar.png
