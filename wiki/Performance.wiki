@@ -7,6 +7,19 @@ This page shall show performance characteristics of the memcached-session-manage
 
 = Details =
 
+The web application is written in java, making use of [http://wicket.apache.org wicket]. It provides several pages:
+  * StatelessPage - a simple page without any state.
+  * SessionPage - a page without real wicket state, but it creates an http session.
+  * StatefullPage - a page with state, you can click and increment a counter.
+  * ListLightPage - a page with state, showing a list of items for which their ids are stored in the session.
+
+For performance testing I chose [http://httpd.apache.org/docs/2.0/programs/ab.html ab].
+
+Tests were done using the following parameters:
+{{{
+ab -n 10000 -c 200 http://localhost:8080/statefull
+}}}
+
 Add your content here.  Format your content with:
   * Text in *bold* or _italic_
   * Headings, paragraphs, and lists
