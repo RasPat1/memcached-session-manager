@@ -1,0 +1,13 @@
+#summary This page shall show performance characteristics of the memcached-session-manager.
+
+= Introduction =
+
+This page shall show performance characteristics of the memcached-session-manager (msm). For this there's a simple web application, which can be run with different msm configurations including different session serialization strategies. Additionally this web application shall show, how performance depends on session size.
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
