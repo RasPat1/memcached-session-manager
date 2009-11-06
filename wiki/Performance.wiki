@@ -15,12 +15,11 @@ The web application is written in java, making use of [http://wicket.apache.org 
 
 For performance testing I chose [http://httpd.apache.org/docs/2.0/programs/ab.html ab].
 
-Tests were done using the following parameters:
+Tests were running on my local laptop, both memcached and tomcat, and also ab were running on the same machine. One might run the tests with different setups to see how numbers change.
+
+ab was executed using the following parameters:
 {{{
 ab -n 10000 -c 200 http://localhost:8080/statefull
 }}}
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+(10000 requests, 200 concurrent)
