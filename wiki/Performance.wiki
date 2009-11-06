@@ -1,6 +1,6 @@
-#summary This page shall show performance characteristics of the memcached-session-manager.
+#summary An overview over performance characteristics of the memcached-session-manager.
 
-_just beeing created_
+= Just beeing edited...=
 
 = Introduction =
 
