@@ -44,5 +44,6 @@ Java serialization is faster than xstream (running with xpp).The advantage of xs
 === Serialized Content ===
 Here you find how XStream had serialized the different pages:
 
-  * SerializedPages_SessionPage
-  * SerializedPages_StatefullPage
+  * [http://memcached-session-manager.googlecode.com/svn/wiki/Performance.attach/session-xstream.xml session-xstream.xml]
+  * [http://memcached-session-manager.googlecode.com/svn/wiki/Performance.attach/statefull-xstream.xml statefull-xstream.xml]
+  * [http://memcached-session-manager.googlecode.com/svn/wiki/Performance.attach/listlight-xstream.xml listlight-xstream.xml]
