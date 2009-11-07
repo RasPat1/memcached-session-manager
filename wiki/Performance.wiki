@@ -45,3 +45,4 @@ Java serialization is faster than xstream (running with xpp).The advantage of xs
 Here you find how XStream had serialized the different pages:
 
   * SerializedPages_SessionPage
+  * SerializedPages_StatefullPage
