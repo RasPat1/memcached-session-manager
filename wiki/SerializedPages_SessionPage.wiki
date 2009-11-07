@@ -1,3 +1,5 @@
+#summary This is the serialized version of the !SessionPage (serialized by XStream).
+
 {{{
 <de.javakaffee.web.msm.MemcachedBackupSessionManager_-MemcachedBackupSession serialization="custom">
   <org.apache.catalina.session.StandardSession>
