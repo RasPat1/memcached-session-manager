@@ -41,4 +41,4 @@ One thing that this chart shows, is that for stateless pages/requests it makes n
 
 For sessions, it depends on the serialization strategy.
 
-Java serialization is faster than xstream (running with xpp), the advantage of xstream is, that it can serialize even classes that do not implement {{{java.io.Serializable}}}.
+Java serialization is faster than xstream (running with xpp).The advantage of xstream is, that it can serialize even classes that do not implement {{{java.io.Serializable}}}.
