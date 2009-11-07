@@ -1,0 +1,5 @@
+#summary The serialized version of the ListLightPage (serialized by XStream).
+
+{{{
+
+}}}
