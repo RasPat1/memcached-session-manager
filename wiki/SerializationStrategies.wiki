@@ -9,7 +9,7 @@ As Java's serialization has some limitations/disadvantages, the serialization st
 == Pro's/Con's of Java's serialization ==
 
   * *PRO: handles cyclic dependencies.*
-  * *PRO: supports private classes classes.* During deserialization private classes are a challange, as even the Class object is not visible and therefore you cannot dynamically create an instance of such a class.
+  * *PRO: supports private classes.* During deserialization private classes are a challange, as even the Class object is not visible and therefore you cannot dynamically create an instance of such a class.
   * *PRO: supports classes without default constructor.* If a class does not provide a default constructor (a constructor without any arguments), you don't know how to create a new instance of this class.
   * ... more, less?
 
