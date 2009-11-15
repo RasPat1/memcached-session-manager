@@ -8,14 +8,14 @@ As Java's serialization has some limitations/disadvantages, the serialization st
 
 == Pro's/Con's of Java's serialization ==
 
-  * PRO: handles cyclic dependencies
-  * PRO: supports private classes classes. During deserialization private classes are a challange, as even the Class object is not visible and therefore you cannot dynamically create an instance of such a class.
-  * PRO: supports classes without default constructor. If a class does not provide a default constructor (a constructor without any arguments), you don't know how to create a new instance of this class.
+  * *PRO: handles cyclic dependencies.*
+  * *PRO: supports private classes classes.* During deserialization private classes are a challange, as even the Class object is not visible and therefore you cannot dynamically create an instance of such a class.
+  * *PRO: supports classes without default constructor.* If a class does not provide a default constructor (a constructor without any arguments), you don't know how to create a new instance of this class.
   * ... more, less?
 
-  * CON: classes to be serialized need to implement `java.io.Serializable`. Unfortunately you don't have always the code at your hand that shall get serialized.
-  * CON: no support for different versions of the same class. All clients reading the serialized content need to have exactly the same version of the compiled class.
-  * CON: the serialised files are not human readable. If you want to inspect the serialized content e.g. because you want to see if things can be optimized somehow, you cannot just look at what got serialized.
+  * *CON: classes to be serialized need to implement `java.io.Serializable`.* Unfortunately you don't have always the code at your hand that shall get serialized.
+  * *CON: no support for different versions of the same class.* All clients reading the serialized content need to have exactly the same version of the compiled class.
+  * *CON: the serialised files are not human readable.* If you want to inspect the serialized content e.g. because you want to see if things can be optimized somehow, you cannot just look at what got serialized.
   * ... more, less?
 
 == Requirements for serialization strategies ==
