@@ -16,6 +16,7 @@ As Java's serialization has some limitations/disadvantages, the serialization st
   * *CON: classes to be serialized need to implement `java.io.Serializable`.* Unfortunately you don't have always the code at your hand that shall get serialized.
   * *CON: no support for different versions of the same class.* All clients reading the serialized content need to have exactly the same version of the compiled class.
   * *CON: the serialised files are not human readable.* If you want to inspect the serialized content e.g. because you want to see if things can be optimized somehow, you cannot just look at what got serialized.
+  * *CON: shared instances duplicated during deserialization.* If two objects, A and B, share the same object, C, then upon serialization and subsequent deserialization of A and B, each will point to its own clone of the object C, and sharing is broken. (TODO: check if valid, found at http://download.oracle.com/docs/cd/A97336_01/buslog.102/a83723/objcoll8.htm)
   * ... more, less?
 
 == Requirements for serialization strategies ==
