@@ -22,7 +22,7 @@ This is a list of available serialization strategies and their features.
 
 || *Serialization Strategy* || *Requires <br/> `java.io.Serializable`* || *Cyclic <br/> Dependencies* || *Shared <br/> objects* || *Private classes* || *Classes without <br/> default constructor* || *Comment* ||
 || *java serialization* (default) <br/> `de.javakaffee.web.msm.SessionSerializingTranscoderFactory` || Yes || Yes || Yes || Yes || Yes || ||
-|| *msm-javolution-serializer* <br/> `de.javakaffee.web.msm.serializer.javolution.JavolutionTranscoderFactory` || No || Yes || Yes || Yes (for Sun JVMs) || Yes (for Sun JVMs) || Reflection based, javolution does the actual xml encoding/decoding ||
+|| *msm-javolution-serializer* <br/> `de.javakaffee.web.msm.serializer.javolution.JavolutionTranscoderFactory` || No || Yes || Yes || Yes (for Sun JVMs) || Yes (for Sun JVMs) || Reflection based, [http://javolution.org/ Javolution] is used for actual xml encoding/decoding, it also does the object reference handling ||
 || *msm-xstream-serializer* <br/> `de.javakaffee.web.msm.serializer.xstream.XStreamTranscoderFactory` || No || Yes || Yes || Yes (see also [http://xstream.codehaus.org/faq.html#Compatibility_JVMs XStream FAQ]) || Yes (see also [http://xstream.codehaus.org/faq.html#Compatibility_JVMs XStream FAQ]) || [http://xstream.codehaus.org/ XStream] does all the work ||
 
 
