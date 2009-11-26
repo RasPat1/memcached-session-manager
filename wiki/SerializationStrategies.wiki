@@ -1,7 +1,5 @@
 #summary This page gives an overview over available (pluggable) serialization strategies with their pro's and con's.
 
-_(still work in progress)_
-
 = Introduction =
 By default memcached-session-manager uses Java's serialization to serialize session data so that it can be sent to memcached. The same applies to deserialization of course.
 
