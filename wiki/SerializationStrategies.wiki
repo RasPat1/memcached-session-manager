@@ -14,7 +14,7 @@ The following features should be provided by all serialization strategies, as th
   * *Serialization: Handle cyclic dependencies.* Cyclic dependencies may occur in an object graph and therefor should be supported. The solution is to additionally store ids for serialized objects and refids to already serialized objects if it's found again.
   * *Serialization/Deserialization: Support references to a shared object.* If two instances A and B share the same reference to a shared object C this must be the same for the deserialized objects. As the solution is the same as for cyclic dependencies, both features are fairly related.
   * *Deserialization: Support private classes.* During deserialization private classes are a challange, as even the Class object is not visible and therefore you cannot dynamically create an instance of such a class.
-  * *Deserialization: Supports classes without default constructor.* If a class does not provide a default constructor (a constructor without any arguments), you don't know how to create a new instance of this class.
+  * *Deserialization: Support classes without default constructor.* If a class does not provide a default constructor (a constructor without any arguments), you don't know how to create a new instance of this class.
 
 
 = Available serialization strategies =
