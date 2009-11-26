@@ -21,28 +21,14 @@ The following features should be provided by all serialization strategies, as th
 This is a list of available serialization strategies and their features.
 
 || *Serialization Strategy* || *Requires <br/> `java.io.Serializable`* || *Cyclic <br/> Dependencies* || *Shared <br/> objects* || *Private classes* || *Classes without <br/> default constructor* || *Support different class versions* || *Comment* ||
-|| *java serialization* (default) <br/> `de.javakaffee.web.msm.SessionSerializingTranscoderFactory` || Yes || Yes || Yes || Yes || Yes || No || ||
+|| *java serialization* , bundled with msm(default) <br/> `de.javakaffee.web.msm.SessionSerializingTranscoderFactory` || Yes || Yes || Yes || Yes || Yes || No || ||
 || *[http://github.com/magro/msm-javolution-serializer msm-javolution-serializer]* <br/> `de.javakaffee.web.msm.serializer.javolution.JavolutionTranscoderFactory` || No || Yes || Yes || Yes (for Sun JVMs) || Yes (for Sun JVMs) || Yes || Reflection based, [http://javolution.org/ Javolution] is used for actual xml encoding/decoding, it also does the object reference handling ||
-|| *[http://github.com/magro/msm-xstream-serializer msm-xstream-serializer]* <br/> `de.javakaffee.web.msm.serializer.xstream.XStreamTranscoderFactory` || No || Yes || Yes || Yes (see also [http://xstream.codehaus.org/faq.html#Compatibility_JVMs XStream FAQ]) || Yes (see also [http://xstream.codehaus.org/faq.html#Compatibility_JVMs XStream FAQ]) || Yes (see also [http://xstream.codehaus.org/faq.html#Serialization_newer_class_versions XStream FAQ]) || [http://xstream.codehaus.org/ XStream] does all the work ||
-
-
-= Pro's/Con's of Java's serialization =
-What's good/bad with java's serialization related to the usage with the msm?
-
-  * *PRO: handles cyclic dependencies.*
-  * *PRO: supports private classes.* During deserialization private classes are a challange, as even the Class object is not visible and therefore you cannot dynamically create an instance of such a class.
-  * *PRO: supports classes without default constructor.* If a class does not provide a default constructor (a constructor without any arguments), you don't know how to create a new instance of this class.
-  * ... more, less?
-
-  * *CON: classes to be serialized need to implement `java.io.Serializable`.* Unfortunately you don't have always the code at your hand that shall get serialized.
-  * *CON: no support for different versions of the same class.* All clients reading the serialized content need to have exactly the same version of the compiled class.
-  * *CON: the serialised files are not human readable.* If you want to inspect the serialized content e.g. because you want to see if things can be optimized somehow, you cannot just look at what got serialized.
-  * ... more, less?
+|| *[http://github.com/magro/msm-xstream-serializer msm-xstream-serializer]* <br/> `de.javakaffee.web.msm.serializer.xstream.XStreamTranscoderFactory` || No || Yes || Yes || Yes (see also [http://xstream.codehaus.org/faq.html#Compatibility_JVMs XStream FAQ]) || Yes (see also [http://xstream.codehaus.org/faq.html#Compatibility_JVMs XStream FAQ]) || Yes (see also [http://xstream.codehaus.org/faq.html#Serialization_newer_class_versions XStream FAQ]) || [http://xstream.codehaus.org/ XStream] does all the workss?
 
 
 = Want to roll your own? =
-This section shall outline, which feature a serialization protocol should provide so that it can be used for a serialization strategy for the memcached-session-manager.
+This section shall outline, which feature a serialization protocol should provide so that it can be used for a serialization strategy for the memcached-session- You should check this if you want to create another serialization strategy-manager.
 
 
   * *Serialization of dynamic structures.* This requirement is a result from an asumption, that users shall not be forced to provide s.th. like a schema for their session objects. Most of the time, users even don't know really, what gets stored in the http session and what not. Therefore it's rather impossible to provide a structural definition of the session attributes. However, if this asumption is wrong, serialization of dynamic structures is no longer a requirement :)
-  * *Recreate appropriate types during deserialization.* As session attributes are just bound to a name, that type information for the attribute values must be stored by the serialization protocal. That's the reason, why JSON is (unfortunately) not an appropriate serialization protocol for the memcached-session-manager. One would need to implement a custom JSON format (and I would be happy, if Jackson would/could do this).
+  * *Recreate appropriate types during deserialization.* As session attributes are just bound to a name, that type information for the attribute values must be stored by the serialization protocal. That's the reason, why JSON is (unfortunately) not an appropriate serialization protocol for the memcached-session-manager. One would need to implement a custom JSON format (and I would be happy, if Jackson would/could d
