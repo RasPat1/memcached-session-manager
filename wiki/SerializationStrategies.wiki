@@ -20,10 +20,10 @@ The following features should be provided by all serialization strategies, as th
 = Available serialization strategies =
 This is a list of available serialization strategies and their features.
 
-|| *Strategy* || *Requires <br/> `java.io.Serializable`* || *Cyclic <br/> Dependencies* || *Shared <br/> objects* || *Private classes* || *Classes without <br/> default constructor* ||
-|| java serialization (default) || Yes || Yes || Yes || Yes || Yes ||
-|| msm-javolution-serializer || No || Yes || Yes || Yes (for Sun JVMs) || Yes (for Sun JVMs) ||
-|| msm-xstream-serializer || No || Yes || Yes || Yes (see also [http://xstream.codehaus.org/faq.html#Compatibility_JVMs XStream FAQ]) || Yes (see also [http://xstream.codehaus.org/faq.html#Compatibility_JVMs XStream FAQ]) ||
+|| *Serialization Strategy* || *Requires <br/> `java.io.Serializable`* || *Cyclic <br/> Dependencies* || *Shared <br/> objects* || *Private classes* || *Classes without <br/> default constructor* || *Comment* ||
+|| *java serialization* (default) <br/> `de.javakaffee.web.msm.SessionSerializingTranscoderFactory` || Yes || Yes || Yes || Yes || Yes ||
+|| *msm-javolution-serializer* <br/> `de.javakaffee.web.msm.serializer.javolution.JavolutionTranscoderFactory` || No || Yes || Yes || Yes (for Sun JVMs) || Yes (for Sun JVMs) ||
+|| *msm-xstream-serializer* <br/> `de.javakaffee.web.msm.serializer.xstream.XStreamTranscoderFactory` || No || Yes || Yes || Yes (see also [http://xstream.codehaus.org/faq.html#Compatibility_JVMs XStream FAQ]) || Yes (see also [http://xstream.codehaus.org/faq.html#Compatibility_JVMs XStream FAQ]) ||
 
 
 = Pro's/Con's of Java's serialization =
