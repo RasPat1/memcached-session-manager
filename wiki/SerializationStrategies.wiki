@@ -1,4 +1,5 @@
 #summary This page gives an overview over available (pluggable) serialization strategies with their pro's and con's.
+#labels Featured
 
 _(This currently requires the [http://github.com/magro/memcached-session-manager/tree/pluggable-serialization pluggable-serialization branch] of the memcached-session-manager)_
 
