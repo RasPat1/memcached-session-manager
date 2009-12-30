@@ -15,6 +15,7 @@ The following features should be provided by all serialization strategies, as th
   * *Deserialization: Support private classes.* During deserialization private classes are a challange, as even the Class object is not visible and therefore you cannot dynamically create an instance of such a class.
   * *Deserialization: Support classes without default constructor.* If a class does not provide a default constructor (a constructor without any arguments), you don't know how to create a new instance of this class.
 
+=== Concurrent modifications of collections ===
 A special feature that can be activated with the _copyCollectionsForSerialization_ configuration property targets the case, that there are multiple requests running in parallel for the same session (e.g. because of AJAX) and your application uses non-thread-safe collections like {{{java.util.ArrayList}}} or {{{java.util.HashMap}}}. In this case, your application might modify such a collection while it's being serialized for backup in memcached, which leads to {{{ConcurrentModificationException}}}s during serialization (of course this can happen in your application as well).
 The preferred way to support multiple parallel requests for the same session should be to use thread-safe collections, but there might be situations where you cannot provide this. If you're in this situation you might consider the _copyCollectionsForSerialization_ feature.
 
