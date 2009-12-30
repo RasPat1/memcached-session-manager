@@ -29,8 +29,8 @@ This is a list of available serialization strategies and their features.
 
 My personal opinion regarding these different strategies:
   * Java serialization is very robust and a proven technology. The biggest disadvantage IMHO is that different class versions cannot be handled.
-  * XStream is also a robust and often used java object binding library. The biggest disadvantage IMHO is the relatively bad performance.
-  * Javolution is a very good and fast xml binding toolkit, the reflection part is written by me and adds the bits that are actually binding POJOs to xml. The disadvantage here is that this part is not yet much used (actually used in own projects) and requires more testing/verification that your sessions are serialized/deserialized correctly. The advantage in this case is that changes/improvements can be done easily and fast.
+  * [http://xstream.codehaus.org/ XStream] based serialization should be very robust as  this is an often used java object binding library. The biggest disadvantage IMHO is the relatively bad performance.
+  * [http://javolution.org/ Javolution] is a very good and fast xml binding toolkit. The reflection part is written by me and adds the bits that are actually binding POJOs to xml. It is covered well with unit tests, however I cannot guarantee that there's no issue left to solve (actually this serialization strategy is in use in my own projects). The advantage of this serialization strategy besides good performance is that changes/improvements can be done easily and fast.
 
 A rough performance comparison of the serialization strategies can be found [Performance here].workss?
 
