@@ -33,6 +33,8 @@ So what needs to be done for this?
     requestUriIgnorePattern=".*\.(png|gif|jpg|css|js)$"
     sessionBackupAsync="false"
     sessionBackupTimeout="100"
+    transcoderFactoryClass="de.javakaffee.web.msm.serializer.javolution.JavolutionTranscoderFactory"
+    copyCollectionsForSerialization="true"
     />
 </Context>
 }}}
