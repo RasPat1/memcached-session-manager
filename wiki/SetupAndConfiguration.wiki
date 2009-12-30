@@ -23,13 +23,13 @@ Tomcat-1 (t1) will primarily store it's sessions in memcached-2 (m2). Only if m2
 So what needs to be done for this?
 
 == Decide which serialization strategy to use ==
-Starting with release 1.1 there are several session serialization strategies available, as they are described on SerializationStrategies. The default strategy uses java serialization and is provided by the default memcached-session-manager jar. Other strategies are provided by separate jars, in the section below you'll see which jars are required for which strategy.
+Starting with release 1.1 there are several session serialization strategies available, as they are described on SerializationStrategies. The default strategy uses java serialization and is already provided by the memcached-session-manager jar. Other strategies are provided by separate jars, in the section below you'll see which jars are required for which strategy.
 
 == Configure tomcat ==
-This requires some jars (at least one) to be put in your {{{$CATALINA_HOME/lib/}}} directory and to configure the memcached session manager in the server.xml.
+The configuration of tomcat requires two things: you need to drop some jars in your {{{$CATALINA_HOME/lib/}}} directory and you have to configure the memcached session manager in the server.xml.
 
 === Put jars in {{{$CATALINA_HOME/lib/}}} ===
-Independent of the serialization strategy you always need the [http://memcached-session-manager.googlecode.com/files/memcached-session-manager-1.1.jar memcached-session-manager-1.1.jar] and the [http://spymemcached.googlecode.com/files/memcached-2.4.2.jar memcached-2.4.2.jar] (spymemcached). Just download and put them in {{{$CATALINA_HOME/lib/}}}.
+Independent of the chosen serialization strategy you always need the [http://memcached-session-manager.googlecode.com/files/memcached-session-manager-1.1.jar memcached-session-manager-1.1.jar] and the [http://spymemcached.googlecode.com/files/memcached-2.4.2.jar memcached-2.4.2.jar] (spymemcached). Just download and put them in {{{$CATALINA_HOME/lib/}}}.
   * For *java serialization* nothing more needs to be done.
   * For *javolution based serialization* these jars are required additionally:
     * [http://memcached-session-manager.googlecode.com/files/javolution-5.4.3.1.jar javolution-5.4.3.1.jar] (a patched version of the latest javolution release, the patch is required to support serialization of jdk proxies)
@@ -61,7 +61,7 @@ Now you have finished the configuration of your first tomcat. For the second tom
 
 After this is done, you can just start your application and sessions will be stored in the configured memcached nodes as configured. Now you should do some tests with a simulated tomcat failure, a restart of a memcached node etc. - have fun! :-)
 
-== `MemcachedBackupSessionManager` configuration attributes ==
+=== !MemcachedBackupSessionManager configuration attributes ===
 
 _memcachedNodes_ (required)
   This attribute must contain all memcached nodes you have running. Each memcached node is defined as {{{<id>:<host>:<port>}}}. Several definitions are separated by space.<br/>
