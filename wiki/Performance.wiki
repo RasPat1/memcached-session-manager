@@ -1,4 +1,4 @@
-#summary An overview over performance characteristics of the memcached-session-manager.
+#summary An overview over performance characteristics of the memcached-session-manager and available serialization strategies.
 
 = Introduction =
 
