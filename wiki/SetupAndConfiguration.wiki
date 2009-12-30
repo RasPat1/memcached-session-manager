@@ -28,7 +28,7 @@ Starting with release 1.1 there are several session serialization strategies ava
 == Configure tomcat ==
 The configuration of tomcat requires two things: you need to drop some jars in your {{{$CATALINA_HOME/lib/}}} directory and you have to configure the memcached session manager in the server.xml.
 
-=== Put jars in {{{$CATALINA_HOME/lib/}}} ===
+=== Add jars to {{{$CATALINA_HOME/lib/}}} ===
 Independent of the chosen serialization strategy you always need the [http://memcached-session-manager.googlecode.com/files/memcached-session-manager-1.1.jar memcached-session-manager-1.1.jar] and the [http://spymemcached.googlecode.com/files/memcached-2.4.2.jar memcached-2.4.2.jar] (spymemcached). Just download and put them in {{{$CATALINA_HOME/lib/}}}.
   * For *java serialization* nothing more needs to be done.
   * For *javolution based serialization* these jars are required additionally:
