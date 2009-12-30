@@ -1,0 +1,11 @@
+#summary This page lists changes for each release of memcached-session-manager.
+#labels Featured
+
+= 1.0 to 1.1 =
+  * Added pluggable session serialization strategies (see SerializationStrategies), configurable via the configuration attribute _transcoderFactoryClass_ (also described on [SetupAndConfiguration#MemcachedBackupSessionManager_configuration_attributes SetupAndConfiguration]
+  * Added XStream based serialization strategy (see SerializationStrategies)
+  * Added Javolution based serialization strategy (see SerializationStrategies)
+  * Added configuration attribute _copyCollectionsForSerialization_ (see SetupAndConfiguration and SerializationStrategies#Concurrent_modifications_of_collections)
+
+= 1.0 =
+  * Initial release of msm
