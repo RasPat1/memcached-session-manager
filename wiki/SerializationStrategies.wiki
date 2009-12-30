@@ -17,7 +17,7 @@ The following features should be provided by all serialization strategies, as th
 
 === Concurrent modifications of collections ===
 A special feature that can be activated with the _copyCollectionsForSerialization_ configuration property targets the case, that there are multiple requests running in parallel for the same session (e.g. because of AJAX) and your application uses non-thread-safe collections like {{{java.util.ArrayList}}} or {{{java.util.HashMap}}}. In this case, your application might modify such a collection while it's being serialized for backup in memcached, which leads to {{{ConcurrentModificationException}}}s during serialization (of course this can happen in your application as well).
-The preferred way to support multiple parallel requests for the same session should be to use thread-safe collections, but there might be situations where you cannot provide this. If you're in this situation you might consider the _copyCollectionsForSerialization_ feature.
+The preferred way to support multiple parallel requests for the same session should be to use thread-safe collections, but there might be situations where you cannot provide this. If you're in this situation you might consider the _copyCollectionsForSerialization_ feature (note that this is currently only supported by the javolution based serialization strategy).
 
 = Available serialization strategies =
 This is a list of available serialization strategies and their features.
