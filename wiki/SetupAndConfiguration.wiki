@@ -61,6 +61,8 @@ Now you have finished the configuration of your first tomcat. For the second tom
 
 After this is done, you can just start your application and sessions will be stored in the configured memcached nodes as configured. Now you should do some tests with a simulated tomcat failure, a restart of a memcached node etc. - have fun! :-)
 
+Btw: if you want to see how your sessions are stored in memcached [http://tangent.org/552/libmemcached.html libmemcached] provides _memcat_ - really helpful...
+
 === !MemcachedBackupSessionManager configuration attributes ===
 
 _memcachedNodes_ (required)
