@@ -15,14 +15,23 @@ The following features should be provided by all serialization strategies, as th
   * *Deserialization: Support private classes.* During deserialization private classes are a challange, as even the Class object is not visible and therefore you cannot dynamically create an instance of such a class.
   * *Deserialization: Support classes without default constructor.* If a class does not provide a default constructor (a constructor without any arguments), you don't know how to create a new instance of this class.
 
+A special feature that can be activated with the _copyCollectionsForSerialization_ configuration property targets the case, that there are multiple requests running in parallel for the same session (e.g. because of AJAX) and your application uses non-thread-safe collections like {{{java.util.ArrayList}}} or {{{java.util.HashMap}}}. In this case, your application might modify such a collection while it's being serialized for backup in memcached, which leads to ConcurrentModificationExceptions during serialization (of course this can happen in your application as well).
+The preferred way to support multiple parallel requests for the same session should be to use thread-safe collections, but there might be situations where you cannot provide this. If you're in this situation you might consider the _copyCollectionsForSerialization_ feature.
 
 = Available serialization strategies =
 This is a list of available serialization strategies and their features.
 
-|| *Serialization Strategy* || *Requires <br/> `java.io.Serializable`* || *Cyclic <br/> Dependencies* || *Shared <br/> objects* || *Private classes* || *Classes without <br/> default constructor* || *Support different class versions* || *Comment* ||
-|| *java serialization* , bundled with msm(default) <br/> `de.javakaffee.web.msm.SessionSerializingTranscoderFactory` || Yes || Yes || Yes || Yes || Yes || No || ||
-|| *[http://github.com/magro/msm-javolution-serializer msm-javolution-serializer]* <br/> `de.javakaffee.web.msm.serializer.javolution.JavolutionTranscoderFactory` || No || Yes || Yes || Yes (for Sun JVMs) || Yes (for Sun JVMs) || Yes || Reflection based, [http://javolution.org/ Javolution] is used for actual xml encoding/decoding, it also does the object reference handling ||
-|| *[http://github.com/magro/msm-xstream-serializer msm-xstream-serializer]* <br/> `de.javakaffee.web.msm.serializer.xstream.XStreamTranscoderFactory` || No || Yes || Yes || Yes (see also [http://xstream.codehaus.org/faq.html#Compatibility_JVMs XStream FAQ]) || Yes (see also [http://xstream.codehaus.org/faq.html#Compatibility_JVMs XStream FAQ]) || Yes (see also [http://xstream.codehaus.org/faq.html#Serialization_newer_class_versions XStream FAQ]) || [http://xstream.codehaus.org/ XStream] does all the workss?
+|| *Serialization Strategy* || *Requires <br/> `java.io.Serializable`* || *Cyclic <br/> Dependencies* || *Shared <br/> objects* || *Private classes* || *Classes without <br/> default constructor* || *Support different class versionspy Collections <br/> before <br/> serializationversions* || *Comment* ||
+|| *java serialization* , bundled with msm(default) <br/> `de.javakaffee.web.msm.SessionSerializingTranscoderFactory` || Yes || Yes || Yes || Yes || Yes | Yes || No || ||
+|| *[http://github.com/magro/msm-javolution-serializer msm-javolution-serializer]* <br/> `de.javakaffee.web.msm.serializer.javolution.JavolutionTranscoderFactory` || No || Yes || Yes || Yes (for Sun JVMs) || Yes (for Sun JVMs) ||VMs) || Yes || Reflection based, [http://javolution.org/ Javolution] is used for actual xml encoding/decoding, it also does the object reference handling ||
+|| *[http://github.com/magro/msm-xstream-serializer msm-xstream-serializer]* <br/> `de.javakaffee.web.msm.serializer.xstream.XStreamTranscoderFactory` || No || Yes || Yes || Yes (see also [http://xstream.codehaus.org/faq.html#Compatibility_JVMs XStream FAQ]) || Yes (see also [http://xstream.codehaus.org/faq.html#Compatibility_JVMs XStream FAQ]) || Yes (see also [http://xstream.codehaus.org/faq.html#Serialization_newer_class_versions XStream FNo || [http://xstream.codehaus.org/ XStream] does all the work ||
+
+My personal opinion regarding these different strategies:
+  * Java serialization is very robust and a proven technology. The biggest disadvantage IMHO is that different class versions cannot be handled.
+  * XStream is also a robust and often used java object binding library. The biggest disadvantage IMHO is the relatively bad performance.
+  * Javolution is a very good and fast xml binding toolkit, the reflection part is written by me and adds the bits that are actually binding POJOs to xml. The disadvantage here is that this part is not yet much used (actually used in own projects) and requires more testing/verification that your sessions are serialized/deserialized correctly. The advantage in this case is that changes/improvements can be done easily and fast.
+
+A rough performance comparison of the serialization strategies can be found [Performance here].workss?
 
 
 = Want to roll your own? =
