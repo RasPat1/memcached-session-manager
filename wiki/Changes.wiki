@@ -1,6 +1,13 @@
 #summary This page lists changes for each release of memcached-session-manager.
 #labels Featured
 
+= 1.1 to 1.1.1 (only msm-javolution-serializer) =
+This refers to the maintenance release 1.1.1 for the msm-javolution-serializer with the following fixed bugs:
+  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=27 #27]: Serialization of !AtomicInteger fails for msm-javolution-serializer
+  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=28 #28]: msm-javolution-serializer should support serialization of java.util.Collections$!EmptyList
+  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=30 #30]: msm-javolution-serializer should support serialization of java.util.Collections$!UnmodifiableMap 
+  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=31 #31]: msm-javolution-serializer should be able to load classes from webapp context 
+
 = 1.0 to 1.1 =
   * Added pluggable session serialization strategies (see SerializationStrategies), configurable via the configuration attribute _transcoderFactoryClass_ (described on [SetupAndConfiguration#MemcachedBackupSessionManager_configuration_attributes SetupAndConfiguration]
   * Added XStream based serialization strategy (see SerializationStrategies)
