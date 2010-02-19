@@ -1,5 +1,5 @@
+#summary This page shows what's necessary to get the memcached-session-manager up and running.
 #labels Featured,Phase-Deploy
-This page shows what's necessary to get the memcached-session-manager up and running.
 
 = Introduction =
 
