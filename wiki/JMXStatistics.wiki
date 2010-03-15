@@ -1,0 +1,19 @@
+#summary This page describes which statistics are provided via jmx (since 1.2)
+
+= Introduction =
+
+With version 1.2 there are runtime statistics that are provided via jmx. Just start jconsole (or visualvm, or what else your preferred jmx tool is), open the MBeans tab and browse to the Manager node, the appropriate Context and the correct Hostname (e.g. _Manager -> / -> localhost_). Open the attributes view and look for everything starting with _msmStat_. Details regarding the meaning of each attribute are provided below.
+
+
+= Details =
+
+_msmStatAttributesSerializationInfo_
+  Count, min, avg and max of the time in millis for session serialization (actually just the time for the serialization of session attributes).<br/>
+<br/>
+_msmStatBackupInfo_
+ Count, min, avg and max of the time in millis for session backup (excluding backups where a session was relocated).<br/>
+<br/>
+_msmStatBackupRelocations_
+ The number of session relocations (how many times sessions were moved to another memcached node).<br/>
+<br/>
+_msmStatCachedDataSizeInfo_
