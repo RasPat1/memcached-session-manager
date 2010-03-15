@@ -19,6 +19,7 @@ The following statistics attributes are provided by the memcached-session-manage
 || msmStatNumNoSessionModification || The number of requests that did access the session but did not change any session attribute (so that session backup was skipped) ||
 || msmStatNumSessionsLoadedFromMemcached || The number of sessions that were loaded from memcached ||
 || msmStatBackupInfo || Count, min, avg and max of the total time in millis for session backup, including serialization and sending data to memcached (excluding backups where a session was relocated) ||
+|| msmStatBackupRelocationInfo || Count, min, avg and max of the total time in millis for session relocations, including serialization and sending data to memcached ||
 || msmStatAttributesSerializationInfo ||  Count, min, avg and max of the time in millis for session serialization as part of the backup (actually just the time for the serialization of session attributes) ||
 || msmStatMemcachedUpdateInfo || Count, min, avg and max of the time in millis for storing data in memcached as part of the backup (excluding serialization, including compression) ||
 || msmStatCachedDataSizeInfo || Count, min, avg and max of the size of the data that was sent to memcached (the serialized data after compression) ||
