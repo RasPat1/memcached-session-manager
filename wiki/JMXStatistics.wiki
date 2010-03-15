@@ -7,13 +7,19 @@ With version 1.2 there are runtime statistics that are provided via jmx. Just st
 
 = Details =
 
-_msmStatAttributesSerializationInfo_
-  Count, min, avg and max of the time in millis for session serialization (actually just the time for the serialization of session attributes).<br/>
-<br/>
-_msmStatBackupInfo_
- Count, min, avg and max of the time in millis for session backup (excluding backups where a session was relocated).<br/>
-<br/>
-_msmStatBackupRelocations_
- The number of session relocations (how many times sessions were moved to another memcached node).<br/>
-<br/>
-_msmStatCachedDataSizeInfo_
+The following statistics attributes are provided by the memcached-session-manager via jmx. If you're interested in more just [http://code.google.com/p/memcached-session-manager/issues/list submit an issue].
+
+|| *Attribute Name* || *Description* ||
+|| msmStatNumRequestsWithoutSession || The number of requests without a session ||
+|| msmStatNumRequestsWithSession || The number of requests with a session ||
+|| msmStatNumBackups || The number of successfull session backups (excluding successfull relocations). ||
+|| msmStatBackupRelocations || The number of successfull session relocations (how many times sessions were successfully moved to another memcached node). ||
+|| msmStatNumBackupFailures || The number of backup failures (sessions could not be stored in any memcached node). ||
+|| msmStatNumNoSessionAccess || The number of requests that did not access the session at all (so that session backup was skipped). ||
+|| msmStatNumNoSessionModification || The number of requests that did access the session but did not change any session attribute (so that session backup was skipped). ||
+|| msmStatNumSessionsLoadedFromMemcached || The number of sessions that were loaded from memcached. ||
+|| msmStatBackupInfo || Count, min, avg and max of the total time in millis for session backup, including serialization and sending data to memcached (excluding backups where a session was relocated). ||
+|| msmStatAttributesSerializationInfo ||  Count, min, avg and max of the time in millis for session serialization as part of the backup (actually just the time for the serialization of session attributes). ||
+|| msmStatMemcachedUpdateInfo || Count, min, avg and max of the time in millis for storing data in memcached as part of the backup (excluding serialization, including compression). ||
+|| msmStatCachedDataSizeInfo || Count, min, avg and max of the size of the data that was sent to memcached (the serialized data after compression). ||
+|| msmStatSessionsLoadedFromMemcachedInfo || Count, min, avg and max of the time in millis that took loading sessions from memcached (including deserialization). ||
