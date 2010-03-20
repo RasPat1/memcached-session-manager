@@ -16,6 +16,7 @@ The following statistics attributes are provided by the memcached-session-manage
 || msmStatBackupRelocations || The number of successfull session relocations (how many times sessions were successfully moved to another memcached node) ||
 || msmStatNumBackupFailures || The number of backup failures (sessions could not be stored in any memcached node) ||
 || msmStatNumNoSessionAccess || The number of requests that did not access the session at all (so that session backup was skipped) ||
+|| msmStatNumNoAttributesAccess || The number of requests that did access the session but did not access session attributes via getAttribute/setAttribute (so that session backup was skipped, and it was not necessary to determine, if the session was modified) ||
 || msmStatNumNoSessionModification || The number of requests that did access the session but did not change any session attribute (so that session backup was skipped) ||
 || msmStatNumSessionsLoadedFromMemcached || The number of sessions that were loaded from memcached ||
 || msmStatBackupInfo || Count, min, avg and max of the total time in millis for session backup, including serialization and sending data to memcached (excluding backups where a session was relocated) ||
