@@ -4,7 +4,7 @@
 
 = 1.1.1 to 1.2.0 =
 
-[http://groups.google.com/group/memcached-session-manager/t/f113b97a121d1e9f Release announcement]
+[http://groups.google.com/group/memcached-session-manager/t/f113b97a121d1e9f Announcement of release 1.2.0]
 
 Improvements:
   * There's a new configuration attribute "customConverter" that provides the possibility to specify custom converter. This is only supported by the javoluation serializer (not possible for java and xstream serialization)
