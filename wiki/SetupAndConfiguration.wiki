@@ -29,15 +29,15 @@ Starting with release 1.1 there are several session serialization strategies ava
 The configuration of tomcat requires two things: you need to drop some jars in your {{{$CATALINA_HOME/lib/}}} directory and you have to configure the memcached session manager in the server.xml.
 
 === Add jars to {{{$CATALINA_HOME/lib/}}} ===
-Independent of the chosen serialization strategy you always need the [http://memcached-session-manager.googlecode.com/files/memcached-session-manager-1.1.jar memcached-session-manager-1.1.jar] and the [http://spymemcached.googlecode.com/files/memcached-2.4.2.jar memcached-2.4.2.jar] (spymemcached). Just download and put them in {{{$CATALINA_HOME/lib/}}}.
+Independent of the chosen serialization strategy you always need the [http://memcached-session-manager.googlecode.com/files/memcached-session-manager-1.2.0.jar memcached-session-manager-1.2.0.jar] and the [http://spymemcached.googlecode.com/files/memcached-2.4.2.jar memcached-2.4.2.jar] (spymemcached). Just download and put them in {{{$CATALINA_HOME/lib/}}}.
   * For *java serialization* nothing more needs to be done.
   * For *javolution based serialization* these jars are required additionally:
     * [http://memcached-session-manager.googlecode.com/files/javolution-5.4.3.1.jar javolution-5.4.3.1.jar] (a patched version of the latest javolution release, the patch is required to support serialization of jdk proxies)
-    * [http://memcached-session-manager.googlecode.com/files/msm-javolution-serializer-1.1.1.jar msm-javolution-serializer-1.1.1.jar]
+    * [http://memcached-session-manager.googlecode.com/files/msm-javolution-serializer-1.2.0.jar msm-javolution-serializer-1.2.0.jar]
   * For *xstream based serialization* these jars are required additionally:
     * [http://repository.codehaus.org/com/thoughtworks/xstream/xstream/1.3.1/xstream-1.3.1.jar xstream-1.3.1.jar]
     * [http://www.extreme.indiana.edu/dist/java-repository/xpp3/jars/xpp3_min-1.1.3.4.O.jar xpp3_min-1.1.3.4.O.jar] (xml pull parser used by xstream)
-    * [http://memcached-session-manager.googlecode.com/files/msm-xstream-serializer-1.1.jar msm-xstream-serializer-1.1.jar]
+    * [http://memcached-session-manager.googlecode.com/files/msm-xstream-serializer-1.2.0.jar msm-xstream-serializer-1.2.0.jar]
 
 === Update server.xml ===
 Configure the appropriate context in your {{{$CATALINA_HOME/conf/server.xml}}} so that it contains the {{{Manager}}} configuration for the memcached-session-manager, like this:
