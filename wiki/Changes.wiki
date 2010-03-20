@@ -1,6 +1,31 @@
 #summary This page lists changes for each release of memcached-session-manager.
 #labels Featured
 
+
+= 1.1.1 to 1.2.0 =
+
+[http://groups.google.com/group/memcached-session-manager/t/f113b97a121d1e9f Release announcement]
+
+Improvements:
+  * There's a new configuration attribute "customConverter" that provides the possibility to specify custom converter. This is only supported by the javoluation serializer (not possible for java and xstream serialization)
+  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=32 #32]: msm-javolution-serializer should provide more efficient serialization of joda !DateTime (this is available as msm-javolution-serializer-jodatime, required the "customConverter" feature)
+  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=36 #36]: Store modified sessions only
+  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=42 #42]: createSession might take a possibly provided sessionId into account
+  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=43 #43]: Calculate statistics for serialization time / backup time / load time / skips etc (see [2] for more)
+  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=44 #44]: Support comma-separated list of nodes
+  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=46 #46]: Support reconfiguration of memcached nodes at runtime via jmx
+
+Fixes: 
+  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=33 #33]: msm-javolution-serializer: !ReflectionBinding does not honor XMLSerializable interface
+  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=34 #34]: msm-javolution-serializer: java.util.Currency gets deserialized with !ReflectionFormat
+  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=35 #35]: Use same logging system as Tomcat
+  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=40 #40]: webapp sets cookie for every page if memcached process is missing
+  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=41 #41]: createSession should take maxActiveSessions into account
+  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=47 #47]: Cookie set on memcached failure doesn't honor request's secure property
+  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=48 #48]: Memcached failover / session relocation not supported when cookies are disabled
+  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=49 #49]: Sessions not associated with a memcached node don't get associated as soon as a memcached is available
+
+
 = 1.1 to 1.1.1 (only msm-javolution-serializer) =
 This refers to the maintenance release 1.1.1 for the msm-javolution-serializer with the following fixed bugs:
   * [http://code.google.com/p/memcached-session-manager/issues/detail?id=27 #27]: Serialization of !AtomicInteger fails for msm-javolution-serializer
