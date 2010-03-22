@@ -2,7 +2,9 @@
 
 = Introduction =
 
-With version 1.2 there are runtime statistics that are provided via jmx. Just start jconsole (or visualvm, or what else your preferred jmx tool is), open the MBeans tab and browse to the Manager node, the appropriate Context and the correct Hostname (e.g. _Manager -> /myapp -> localhost_). Open the attributes view and look for everything starting with _msmStat_. Details regarding the meaning of each attribute are provided below.
+With version 1.2 there are runtime statistics that are provided via jmx. Statistics are enabled by default, but you can also disable them via _enableStatistics="false"_ in the manager configuration.
+
+To access the gathered stats just start jconsole (or visualvm, or what else your preferred jmx tool is), open the MBeans tab and browse to the Manager node, the appropriate Context and the correct Hostname (e.g. _Manager -> /myapp -> localhost_). Open the attributes view and look for everything starting with _msmStat_. Details regarding the meaning of each attribute are provided below.
 
 
 = Details =
