@@ -74,8 +74,11 @@ _failoverNodes_ (optional)
 _requestUriIgnorePattern_ (optional)
  This attribute contains a regular expression for request URIs, that shall not trigger a session backup. If static resources like css, javascript, images etc. are delivered by the same tomcat and the same web application context these requests will also pass the memcached-session-manager. However, as these requests should not change anything in a http session, they should also not trigger a session backup. So you should check if any static resources are delivered by tomcat and in this case you should exclude them by using this attribute. The {{{requestUriIgnorePattern}}} must follow the java regex [http://java.sun.com/javase/6/docs/api/java/util/regex/Pattern.html Pattern].<br/>
 <br/>
-_sessionBackupAsync_ (optional, default _false_)
- Specifies if the session shall be stored asynchronously in memcached. If this is _false_, the timeout set via _sessionBackupTimeout_ is evaluated. The default value is _false_. Notice: if the session backup is done asynchronously, it is possible that a session cannot be stored in memcached and we don't notice that - therefore the session would not get relocated to another memcached node.<br/>
+_sessionBackupAsync_ (optional, default _true_)
+ Specifies if the session shall be stored asynchronously in memcached. If this is _true_, the _backupThreadCount_ setting is evaluated. If this is _false_, the timeout set via _sessionBackupTimeout_ is evaluated.<br/>
+<br/>
+_backupThreadCount_ (since 1.3, optional, default _number-of-cpu-cores_)
+ The number of threads that are used for asynchronous session backup (if _sessionBackupAsync="true"_). For the default value the number of available processors (cores) is used.<br/>
 <br/>
 _sessionBackupTimeout_ (optional, default _100_)
  The timeout in milliseconds after that a session backup is considered as beeing failed. This property is only evaluated if sessions are stored synchronously (set via _sessionBackupAsync_). The default value is _100_ milliseconds.<br/>
