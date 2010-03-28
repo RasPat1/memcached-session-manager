@@ -100,7 +100,8 @@ _customConverter_ (since 1.2, optional)
  Custom converter must be supported by the serialization strategy specified with _transcoderFactoryClass_. Requirements regarding the specific custom converter classes depend on the actual serialization strategy, but a common requirement would be that they must provide a default/no-args constructor. For more details have a look at [SerializationStrategies#Available_serialization_strategies available serialization strategies].
 
  Available converter implementations:<br/>
-  ** {{{de.javakaffee.web.msm.serializer.javolution.JodaDateTimeFormat}}} (provided by msm-javoluation-serializer-jodatime): A more efficient serialization of Joda's [http://joda-time.sourceforge.net/api-release/index.html?org/joda/time/DateTime.html DateTime], see also [http://code.google.com/p/memcached-session-manager/issues/detail?id=32 issue #32].<br/>
+  ** {{{de.javakaffee.web.msm.serializer.javolution.JodaDateTimeFormat}}} (provided by msm-javoluation-serializer-jodatime): A more efficient serialization of Joda's [http://joda-time.sourceforge.net/api-release/index.html?org/joda/time/DateTime.html DateTime], see also [http://code.google.com/p/memcached-session-manager/issues/detail?id=32 issue #32].
+  ** {{{de.javakaffee.web.msm.serializer.javolution.CGLibProxyFormat}}} (provided by msm-javoluation-serializer-cglib): serializes/deserializes CGLIB proxies, see also [http://code.google.com/p/memcached-session-manager/issues/detail?id=59 issue #59].<br/>
 <br/>
 _enableStatistics_ (since 1.2, optional, default _true_)
  A boolean value that specifies, if statistics shall be gathered. For more info see the [JMXStatistics] page.
