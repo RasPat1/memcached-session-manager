@@ -71,6 +71,9 @@ _memcachedNodes_ (required)
 _failoverNodes_ (optional)
  This attribute must contain the ids of the memcached nodes, that shall not be used by this tomcat for session backup, but only if no other memcached nodes are available. Therefore, you should list those memcached nodes, that are running on the same machine as this tomcat. Several memcached node ids are separated by space.<br/>
 <br/>
+_memcachedProtocol_ (since 1.3, optional, default _text_)
+  This attribute specifies the memcached protocol to use, one of _text_ or _binary_.<br/>
+<br/>
 _requestUriIgnorePattern_ (optional)
  This attribute contains a regular expression for request URIs, that shall not trigger a session backup. If static resources like css, javascript, images etc. are delivered by the same tomcat and the same web application context these requests will also pass the memcached-session-manager. However, as these requests should not change anything in a http session, they should also not trigger a session backup. So you should check if any static resources are delivered by tomcat and in this case you should exclude them by using this attribute. The {{{requestUriIgnorePattern}}} must follow the java regex [http://java.sun.com/javase/6/docs/api/java/util/regex/Pattern.html Pattern].<br/>
 <br/>
