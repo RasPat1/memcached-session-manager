@@ -14,8 +14,9 @@ The following statistics attributes are provided by the memcached-session-manage
 || *Attribute Name* || *Description* ||
 || msmStatNumRequestsWithoutSession || The number of requests without a session ||
 || msmStatNumRequestsWithSession || The number of requests with a session ||
-|| msmStatNumBackups || The number of successfull session backups (excluding successfull relocations) ||
-|| msmStatBackupRelocations || The number of successfull session relocations (how many times sessions were successfully moved to another memcached node) ||
+|| msmStatNumTomcatFailover || The number of sessions that were taken over from other tomcats ||
+|| msmStatNumBackups || The number of successfull session backups ||
+|| msmStatNumMemcachedFailover || The number of session relocations (how many times sessions were moved to another memcached node) ||
 || msmStatNumBackupFailures || The number of backup failures (sessions could not be stored in any memcached node) ||
 || msmStatNumNoSessionAccess || The number of requests that did not access the session at all (so that session backup was skipped) ||
 || msmStatNumNoAttributesAccess || The number of requests that did access the session but did not access session attributes via getAttribute/setAttribute (so that session backup was skipped, and it was not necessary to determine, if the session was modified) ||
