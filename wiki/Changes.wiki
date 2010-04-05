@@ -12,7 +12,7 @@ Improvements:
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=50 #50]: Allow configuration of memcached protocol to use
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=51 #51]: Session serialization should be done asynchronously when sessionBackupAsync=true
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=52 #52]: Add backupThreadCount attribute to specify number of threads to use for async session backup
- * [http://code.google.com/p/memcached-session-manager/issues/detail?id=54 #54]: Support session cookie 'HttpOnly' flag when changing session id due to memcached failover (for tomcat >= 6.0.19 only)
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=54 #54]: Support session cookie '!HttpOnly' flag when changing session id due to memcached failover (for tomcat >= 6.0.19 only)
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=56 #56]: javolution-serializer: support public Collections/Maps providing only a constructor taking an int (size)
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=57 #57]: javolution-serializer: Provide more efficient serialization for StringBuffer and StringBuilder
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=59 #59]: Add support for serialization/deserialization of cglib proxies to javolution-serializer
