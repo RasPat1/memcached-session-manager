@@ -1,0 +1,12 @@
+#summary A comparison of some of the serialization strategies performance wise.
+
+=== Benchmark small (20 person samples, 7 component samples) ===
+http://spreadsheets.google.com/oimg?key=0AspDnQzTrkhddDRWeEl3LWs5R0UxbFB6MURmdHY1cGc&oid=2&v=1273015386316&foo=bar.png
+
+
+=== Benchmark medium (100 person samples, 31 component samples) ===
+http://spreadsheets.google.com/oimg?key=0AspDnQzTrkhddDRWeEl3LWs5R0UxbFB6MURmdHY1cGc&oid=4&v=1273015482080&foo=bar.png
+
+
+=== Benchmark big (500 person samples, 261 component samples) ===
+http://spreadsheets.google.com/oimg?key=0AspDnQzTrkhddDRWeEl3LWs5R0UxbFB6MURmdHY1cGc&oid=6&v=1273015579203&foo=bar.png
