@@ -15,7 +15,7 @@ A short explanation of the labels:
   * _Min_, _Avg_, _Max_ - minimum, average and maximum time in millis required for 500 serializations/deserializations (10 cycles)
 
 
-=== Benchmark small (20 person samples, 7 component samples) ===
+=== Benchmark small (10 person samples, 7 component samples) ===
 http://spreadsheets.google.com/oimg?key=0AspDnQzTrkhddDRWeEl3LWs5R0UxbFB6MURmdHY1cGc&oid=2&v=1273186036253&foo=bar.png
 
 
