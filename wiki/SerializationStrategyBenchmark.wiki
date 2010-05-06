@@ -12,7 +12,7 @@ The plain numbers are published here: [http://spreadsheets.google.com/pub?key=0A
 A short explanation of the labels:
   * _Ser_ - serialization time
   * _Deser_ - deserialization time (you guessed it :-))
-  * _Min_, _Avg_, _Max_ - minimum, average and maximum time required for 500 serializations/deserializations (10 cycles)
+  * _Min_, _Avg_, _Max_ - minimum, average and maximum time in millis required for 500 serializations/deserializations (10 cycles)
 
 
 === Benchmark small (20 person samples, 7 component samples) ===
