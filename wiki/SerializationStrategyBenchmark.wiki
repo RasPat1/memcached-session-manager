@@ -1,12 +1,22 @@
 #summary A comparison of some of the serialization strategies performance wise.
 
+This was a run of the [http://github.com/magro/memcached-session-manager/tree/master/serializer-benchmark/ serializer-benchmark] on my T61 (Core Duo T7300, 2x2GHz) running Fedora Core 12 with Sun JDK 1.6.0_18-b07:
+{{{
+java -Xms512M -Xmx512M -classpath [..] de.javakaffee.web.msm.serializer.Benchmark
+}}}
+
+The plain numbers are published here: [http://spreadsheets.google.com/pub?key=0AspDnQzTrkhddDRWeEl3LWs5R0UxbFB6MURmdHY1cGc&gid=0 spreadsheets.google.com]
+
+The charts are following.
+
+
 === Benchmark small (20 person samples, 7 component samples) ===
-http://spreadsheets.google.com/oimg?key=0AspDnQzTrkhddDRWeEl3LWs5R0UxbFB6MURmdHY1cGc&oid=2&v=1273015386316&foo=bar.png
+http://spreadsheets.google.com/oimg?key=0AspDnQzTrkhddDRWeEl3LWs5R0UxbFB6MURmdHY1cGc&oid=2&v=1273186036253&foo=bar.png
 
 
 === Benchmark medium (100 person samples, 31 component samples) ===
-http://spreadsheets.google.com/oimg?key=0AspDnQzTrkhddDRWeEl3LWs5R0UxbFB6MURmdHY1cGc&oid=4&v=1273015482080&foo=bar.png
+http://spreadsheets.google.com/oimg?key=0AspDnQzTrkhddDRWeEl3LWs5R0UxbFB6MURmdHY1cGc&oid=4&v=1273186069983&foo=bar.png
 
 
 === Benchmark big (500 person samples, 261 component samples) ===
-http://spreadsheets.google.com/oimg?key=0AspDnQzTrkhddDRWeEl3LWs5R0UxbFB6MURmdHY1cGc&oid=6&v=1273015579203&foo=bar.png
+http://spreadsheets.google.com/oimg?key=0AspDnQzTrkhddDRWeEl3LWs5R0UxbFB6MURmdHY1cGc&oid=6&v=1273186101696&foo=bar.png
