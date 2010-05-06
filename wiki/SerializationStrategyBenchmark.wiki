@@ -8,9 +8,9 @@ java -Xms512M -Xmx512M -classpath [..] de.javakaffee.web.msm.serializer.Benchmar
 The plain numbers are published here: [http://spreadsheets.google.com/pub?key=0AspDnQzTrkhddDRWeEl3LWs5R0UxbFB6MURmdHY1cGc&gid=0 spreadsheets.google.com] (all number are millis, also in the charts below)
 
 A short explanation of the legend :-)
-* _Ser_ stands for serialization time
-* _Deser_ - guess - stands for deserialization time
-* _Min_, _Avg_, _Max_ are minimum, average and maximum time (of 10 rounds)
+  * _Ser_ stands for serialization time
+  * _Deser_ - guess - stands for deserialization time
+  * _Min_, _Avg_, _Max_ are minimum, average and maximum time required for 500 serializations/deserializations (10 cycles)
 
 
 === Benchmark small (20 person samples, 7 component samples) ===
