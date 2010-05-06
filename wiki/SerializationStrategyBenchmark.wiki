@@ -5,9 +5,12 @@ This was a run of the [http://github.com/magro/memcached-session-manager/tree/ma
 java -Xms512M -Xmx512M -classpath [..] de.javakaffee.web.msm.serializer.Benchmark
 }}}
 
-The plain numbers are published here: [http://spreadsheets.google.com/pub?key=0AspDnQzTrkhddDRWeEl3LWs5R0UxbFB6MURmdHY1cGc&gid=0 spreadsheets.google.com]
+The plain numbers are published here: [http://spreadsheets.google.com/pub?key=0AspDnQzTrkhddDRWeEl3LWs5R0UxbFB6MURmdHY1cGc&gid=0 spreadsheets.google.com] (all number are millis, also in the charts below)
 
-The charts are following.
+A short explanation of the legend :-)
+* _Ser_ stands for serialization time
+* _Deser_ - guess - stands for deserialization time
+* _Min_, _Avg_, _Max_ are minimum, average and maximum time (of 10 rounds)
 
 
 === Benchmark small (20 person samples, 7 component samples) ===
