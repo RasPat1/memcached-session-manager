@@ -1,6 +1,8 @@
-#summary A comparison of some of the serialization strategies performance wise.
+#summary A comparison of some of the memcached-session-manager serialization strategies performance wise.
 
-This was a run of the [http://github.com/magro/memcached-session-manager/tree/master/serializer-benchmark/ serializer-benchmark] on my T61 (Core Duo T7300, 2x2GHz) running Fedora Core 12 with Sun JDK 1.6.0_18-b07:
+This page shows the results of the [http://github.com/magro/memcached-session-manager/tree/master/serializer-benchmark/ serializer-benchmark] that compares java, javolution based and kryo based serialization/deserialization times for a sample object graph (some persons, addresses, calendar objects etc.).
+
+The benchmark was performed on my T61 (Core Duo T7300, 2x2GHz) running Fedora Core 12 with Sun JDK 1.6.0_18-b07:
 {{{
 java -Xms512M -Xmx512M -classpath [..] de.javakaffee.web.msm.serializer.Benchmark
 }}}
