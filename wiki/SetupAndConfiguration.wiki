@@ -42,7 +42,7 @@ Independent of the chosen serialization strategy you always need the [http://mem
 === Update server.xml ===
 Configure the appropriate context in your {{{$CATALINA_HOME/conf/server.xml}}} so that it contains the {{{Manager}}} configuration for the memcached-session-manager, like this:
 {{{
-<Context path="/foo">
+<Context path="" docBase="ROOT">
   <Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
     memcachedNodes="n1:localhost:11211 n2:localhost:11212"
     failoverNodes="n2"
