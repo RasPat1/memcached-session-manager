@@ -5,9 +5,9 @@
 
 [http://groups.google.com/group/memcached-session-manager/t/1f347fbb626338fc Announcement of release 1.3.6]
 
- * Added New serialization strategy based on [http://code.google.com/p/kryo/ kryo] with a really good performance: SerializationStrategyBenchmark (usage and configuration described in SetupAndConfiguration).
+ * Added new serialization strategy based on [http://code.google.com/p/kryo/ kryo] with a really good performance: SerializationStrategyBenchmark (usage and configuration described in SetupAndConfiguration).
  * A new {{{DummyMemcachedBackupSessionManager}}} for permanent failover simulation during development, to see that session deserialization is working (more is described on SetupAndConfiguration with the {{{className}}} attribute).
- * Removed msm-javolution-serializer-cglib and msm-javolution-serializer-jodatime, both custom converter are now included in the msm-javolution-serializer jar.
+ * Removed msm-javolution-serializer-cglib and msm-javolution-serializer-jodatime, both custom converters are now included in the msm-javolution-serializer jar.
  * Add custom converter for serialization/deserialization of hibernate persistent collections (for javolution and kryo), details on SetupAndConfiguration.
 
 = 1.2.0 to 1.3.0 =
