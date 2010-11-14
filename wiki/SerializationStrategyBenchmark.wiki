@@ -19,6 +19,8 @@ A short explanation of the labels:
 === Benchmark small (10 person samples, 7 component samples) ===
 http://spreadsheets.google.com/oimg?key=0AspDnQzTrkhddDRWeEl3LWs5R0UxbFB6MURmdHY1cGc&oid=2&v=1273186036253&foo=bar.png
 
+https://ajax.googleapis.com/ajax/static/modules/gviz/1.0/chart.html?json=%7B%22chartType%22:%22ColumnChart%22,%22chartName%22:%22Chart+6%22,%22options%22:%7B%22displayAnnotations%22:true,%22showTip%22:true,%22dataMode%22:%22markers%22,%22maxAlternation%22:1,%22pointSize%22:%220%22,%22colors%22:%5B%22%233366CC%22,%22%23DC3912%22,%22%23FF9900%22,%22%23109618%22,%22%23990099%22,%22%230099C6%22,%22%23DD4477%22,%22%2366AA00%22,%22%23B82E2E%22,%22%23316395%22%5D,%22width%22:600,%22smoothLine%22:false,%22lineWidth%22:%222%22,%22labelPosition%22:%22right%22,%22is3D%22:false,%22hasLabelsColumn%22:true,%22wmode%22:%22opaque%22,%22height%22:371,%22allowCollapse%22:true,%22mapType%22:%22hybrid%22,%22isStacked%22:false%7D,%22dataSourceUrl%22:%22%5C/%5C/spreadsheets.google.com%5C/tq?key%3Dt4VxIw-k9GE1lPz1Dftv5pg%26headers%3D1%26transpose%3D1%26range%3DA1:G4%26gid%3D0%26pub%3D1%22%7D&foo=bar.png
+
 
 === Benchmark medium (100 person samples, 31 component samples) ===
 http://spreadsheets.google.com/oimg?key=0AspDnQzTrkhddDRWeEl3LWs5R0UxbFB6MURmdHY1cGc&oid=4&v=1273186069983&foo=bar.png
