@@ -17,12 +17,12 @@ A short explanation of the labels:
 
 
 === Benchmark small (10 person samples, 7 component samples) ===
-http://spreadsheets.google.com/oimg?key=0AspDnQzTrkhddDRWeEl3LWs5R0UxbFB6MURmdHY1cGc&oid=2&v=1273186036253&foo=bar.png
+http://spreadsheets.google.com/oimg?key=0AspDnQzTrkhddDRWeEl3LWs5R0UxbFB6MURmdHY1cGc&oid=10&v=1273186036253&foo=bar.png
 
 
 === Benchmark medium (100 person samples, 31 component samples) ===
-http://spreadsheets.google.com/oimg?key=0AspDnQzTrkhddDRWeEl3LWs5R0UxbFB6MURmdHY1cGc&oid=4&v=1273186069983&foo=bar.png
+http://spreadsheets.google.com/oimg?key=0AspDnQzTrkhddDRWeEl3LWs5R0UxbFB6MURmdHY1cGc&oid=12&v=1273186069983&foo=bar.png
 
 
 === Benchmark big (500 person samples, 261 component samples) ===
-http://spreadsheets.google.com/oimg?key=0AspDnQzTrkhddDRWeEl3LWs5R0UxbFB6MURmdHY1cGc&oid=6&v=1273186101696&foo=bar.png
+http://spreadsheets.google.com/oimg?key=0AspDnQzTrkhddDRWeEl3LWs5R0UxbFB6MURmdHY1cGc&oid=14&v=1273186101696&foo=bar.png
