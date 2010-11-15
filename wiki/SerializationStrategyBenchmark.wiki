@@ -29,5 +29,5 @@ http://spreadsheets.google.com/oimg?key=0AspDnQzTrkhddDRWeEl3LWs5R0UxbFB6MURmdHY
 
 
 === Serialized data size ===
-The following chart shows the size of the serialized data for the different serialization strategies for 10, 100, 500 samples (here's the [https://spreadsheets.google.com/pub?key=0AspDnQzTrkhddFN5ZUVfTEhLRTVCTi00ZkJiWldteXc spreadsheet with numbers]):
-http://spreadsheets.google.com/oimg?key=0AspDnQzTrkhddFN5ZUVfTEhLRTVCTi00ZkJiWldteXc&oid=2&foo=bar.png
+The following chart shows the size of the serialized data for the different serialization strategies for 10, 100, 500 samples (here's the [https://spreadsheets.google.com/pub?key=0AspDnQzTrkhddFN5ZUVfTEhLRTVCTi00ZkJiWldteXc spreadsheet] with numbers):
+[https://spreadsheets.google.com/pub?key=0AspDnQzTrkhddFN5ZUVfTEhLRTVCTi00ZkJiWldteXc http://spreadsheets.google.com/oimg?key=0AspDnQzTrkhddFN5ZUVfTEhLRTVCTi00ZkJiWldteXc&oid=2&foo=bar.png]
