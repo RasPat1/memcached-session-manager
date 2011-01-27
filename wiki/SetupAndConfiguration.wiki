@@ -4,11 +4,11 @@
 = Introduction =
 
 For the most simple integration you just need to have a tomcat and a memcached installed.
-In your production environment you probably will have several tomcats and you should also have several memcached nodes available, on different pieces of hardware. You need to use sticky sessions, as the memcached-session-manager is designed just for sticky-sessions. Therefore, your load-balancer also has to be configured to make sessions sticky.
+In your production environment you probably will have several tomcats and you should also have several memcached nodes available, on different pieces of hardware. You can use sticky sessions or non-sticky sessions, memcached-session-manager supports both operation modes.
 
-The following description assumes, that you have two instances of tomcat and two instances of memcached installed.
+The following description shows an example for a setup with sticky sessions, with two instances of tomcat and two instances of memcached installed.
 
-Tomcat-1 (t1) will primarily store it's sessions in memcached-2 (m2). Only if m2 is not available, it will store it's sessions in memcached-1 (m1). This is desirable, if t1 and m1 are running on one machine, and tomcat-2 (t2) and m2 are running on another machine. In this case, even the first machine (serving t1 and m1) could crash completely and no session would be lost - they could be served by t2 and m2. The following really nice ASCII art shows this setup.
+Tomcat-1 (t1) will primarily store it's sessions in memcached-2 (m2) which is running on another machine (m2 is a regular node for t1). Only if m2 is not available, t1 will store it's sessions in memcached-1 (m1, m1 is the failoverNode for t1). With this configuration, sessions won't be lost when machine 1 (serving t1 and m1) crashes. The following really nice ASCII art shows this setup.
 
 {{{
 <t1>   <t2>
@@ -29,7 +29,7 @@ Starting with release 1.1 there are several session serialization strategies ava
 The configuration of tomcat requires two things: you need to drop some jars in your {{{$CATALINA_HOME/lib/}}} directory and you have to configure the memcached session manager in the server.xml.
 
 === Add jars to {{{$CATALINA_HOME/lib/}}} ===
-Independent of the chosen serialization strategy you always need the [http://memcached-session-manager.googlecode.com/files/memcached-session-manager-1.3.6.jar memcached-session-manager-1.3.6.jar] and the [http://spymemcached.googlecode.com/files/memcached-2.5.jar memcached-2.5.jar] (spymemcached). Just download and put them in {{{$CATALINA_HOME/lib/}}}.
+Independent of the chosen serialization strategy you always need the [http://memcached-session-manager.googlecode.com/files/memcached-session-manager-1.4.0-RC1.jar memcached-session-manager-1.4.0-RC1.jar] and the [http://spymemcached.googlecode.com/files/memcached-2.5.jar memcached-2.5.jar] (spymemcached). Just download and put them in {{{$CATALINA_HOME/lib/}}}.
 
 === Add jars to {{{WEB-INF/lib/}}} ===
 If you want to use java's built in serialization nothing more has to be done.
@@ -50,25 +50,36 @@ If you want to use a custom serialization strategy (e.g. because of [Serializati
     * [http://memcached-session-manager.googlecode.com/files/msm-xstream-serializer-1.3.6.jar msm-xstream-serializer-1.3.6.jar]
 
 === Update server.xml ===
-Configure the appropriate context in your {{{$CATALINA_HOME/conf/server.xml}}} so that it contains the {{{Manager}}} configuration for the memcached-session-manager, like this:
+Configure the appropriate context in your {{{$CATALINA_HOME/conf/server.xml}}} so that it contains the {{{Manager}}} configuration for the memcached-session-manager, like this example for sticky sessions:
 {{{
 <Context path="" docBase="ROOT">
   <Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
     memcachedNodes="n1:localhost:11211 n2:localhost:11212"
-    failoverNodes="n2"
+    failoverNodes="n1"
     requestUriIgnorePattern=".*\.(png|gif|jpg|css|js)$"
-    sessionBackupAsync="false"
-    sessionBackupTimeout="100"
-    copyCollectionsForSerialization="false"
     transcoderFactoryClass="de.javakaffee.web.msm.serializer.kryo.KryoTranscoderFactory"
     customConverter="de.javakaffee.web.msm.serializer.kryo.JodaDateTimeRegistration"
     />
 </Context>
 }}}
 
-This is an example configuration with all configuration attributes (not all are required). It assumes, that you have running two memcached nodes on localhost, one on port 11211 and another one on port 11212, and that you want to use javolution based serialization. More details to each of the configuration attributes are provided in the section below.
+For non-sticky sessions the configuration would look like this:
+{{{
+<Context path="" docBase="ROOT">
+  <Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
+    memcachedNodes="n1:localhost:11211 n2:localhost:11212"
+    sticky="false"
+    lockingMode="uriPattern:/path1|/path2"
+    requestUriIgnorePattern=".*\.(png|gif|jpg|css|js)$"
+    transcoderFactoryClass="de.javakaffee.web.msm.serializer.kryo.KryoTranscoderFactory"
+    customConverter="de.javakaffee.web.msm.serializer.kryo.JodaDateTimeRegistration"
+    />
+</Context>
+}}}
 
-Now you have finished the configuration of your first tomcat. For the second tomcat you just need to change the failover node, you should set this to {{{n1}}} for tomcat-2.
+These example configurations assume, that you have running two memcached nodes on localhost, one on port 11211 and another one on port 11212, and that you want to use kryo based serialization. More details to configuration attributes are provided in the section below.
+
+Now you have finished the configuration of your first tomcat. For the second tomcat you just need to change the failover node when you're using sticky sessions.
 
 After this is done, you can just start your application and sessions will be stored in the configured memcached nodes as configured. Now you should do some tests with a simulated tomcat failure, a restart of a memcached node etc. - have fun! :-)
 
@@ -77,27 +88,34 @@ After this is done, you can just start your application and sessions will be sto
 _className_ (required)
   This should be set to {{{de.javakaffee.web.msm.MemcachedBackupSessionManager}}} to get sessions stored in memcached. However, since version 1.3.6 there's also a {{{de.javakaffee.web.msm.DummyMemcachedBackupSessionManager}}} that can be used for development purposes: it simply serializes sessions to a special in memory map and deserializes the serialized data at the next request when a session is requested (without really using this session) - just to see if deserialization is working for each request. Your application is still using sessions as if the memcached-session-manager (or !DummyMemcachedBackupSessionManager) would not be existing. Session serialization/deserialization is done asynchronously.
   The configuration attributes {{{memcachedNodes}}} and {{{failoverNode}}} are not used to create a memcached client, so serialized session data will *not* be sent to memcached - and therefore no running memcacheds are required.
+
 _memcachedNodes_ (required)
-  This attribute must contain all memcached nodes you have running. Each memcached node is defined as {{{<id>:<host>:<port>}}}. Several definitions are separated by space.<br/>
-<br/>
-_failoverNodes_ (optional)
- This attribute must contain the ids of the memcached nodes, that shall not be used by this tomcat for session backup, but only if no other memcached nodes are available. Therefore, you should list those memcached nodes, that are running on the same machine as this tomcat. Several memcached node ids are separated by space.<br/>
-<br/>
+  This attribute must contain all memcached nodes you have running. Each memcached node is defined as {{{<id>:<host>:<port>}}}. Several definitions are separated by space or comma.
+
+_failoverNodes_ (optional, must not be used for non-sticky sessions)
+ This attribute must contain the ids of the memcached nodes, that shall not be used by this tomcat for session backup, but only if no other memcached nodes are available. Therefore, you should list those memcached nodes, that are running on the same machine as this tomcat. Several memcached node ids are separated by space or comma. For non-sticky sessions failoverNodes must not be specified as a session is not tied to a single tomcat.
+
 _memcachedProtocol_ (since 1.3, optional, default _text_)
-  This attribute specifies the memcached protocol to use, one of _text_ or _binary_.<br/>
-<br/>
+  This attribute specifies the memcached protocol to use, one of _text_ or _binary_.
+
+_sticky_ (since 1.4.0, optional, default _true_)
+ Specifies if sticky or non-sticky sessions are used.
+
+_lockingMode_ (since 1.4.0, optional, for non-sticky sessions only, default _none_)
+ Specifies the locking strategy for non-sticky sessions, one of {{{none}}} (no locking at all), {{{all}}} (the session is locked when requested by the app until the end of the request), {{{auto}}} (readonly requests are auto detected, the session is only locked for requests that modify the session) or  {{{uriPattern:<regexp>}}} (the provided [http://java.sun.com/javase/6/docs/api/java/util/regex/Pattern.html regular expression pattern] is compared with the {{{requestURI}}} + "?" + {{{queryString}}} and the session is locked if they match).
+
 _requestUriIgnorePattern_ (optional)
- This attribute contains a regular expression for request URIs, that shall not trigger a session backup. If static resources like css, javascript, images etc. are delivered by the same tomcat and the same web application context these requests will also pass the memcached-session-manager. However, as these requests should not change anything in a http session, they should also not trigger a session backup. So you should check if any static resources are delivered by tomcat and in this case you should exclude them by using this attribute. The {{{requestUriIgnorePattern}}} must follow the java regex [http://java.sun.com/javase/6/docs/api/java/util/regex/Pattern.html Pattern].<br/>
-<br/>
+ This attribute contains a regular expression for request URIs, that shall not trigger a session backup. If static resources like css, javascript, images etc. are delivered by the same tomcat and the same web application context these requests will also pass the memcached-session-manager. However, as these requests should not change anything in a http session, they should also not trigger a session backup. So you should check if any static resources are delivered by tomcat and in this case you should exclude them by using this attribute. The {{{requestUriIgnorePattern}}} must follow the java regex [http://java.sun.com/javase/6/docs/api/java/util/regex/Pattern.html Pattern].
+
 _sessionBackupAsync_ (optional, default _true_)
- Specifies if the session shall be stored asynchronously in memcached. If this is _true_, the _backupThreadCount_ setting is evaluated. If this is _false_, the timeout set via _sessionBackupTimeout_ is evaluated.<br/>
-<br/>
+ Specifies if the session shall be stored asynchronously in memcached. If this is _true_, the _backupThreadCount_ setting is evaluated. If this is _false_, the timeout set via _sessionBackupTimeout_ is evaluated.
+
 _backupThreadCount_ (since 1.3, optional, default _number-of-cpu-cores_)
- The number of threads that are used for asynchronous session backup (if _sessionBackupAsync="true"_). For the default value the number of available processors (cores) is used.<br/>
-<br/>
+ The number of threads that are used for asynchronous session backup (if _sessionBackupAsync="true"_). For the default value the number of available processors (cores) is used.
+
 _sessionBackupTimeout_ (optional, default _100_)
- The timeout in milliseconds after that a session backup is considered as beeing failed. This property is only evaluated if sessions are stored synchronously (set via _sessionBackupAsync_). The default value is _100_ milliseconds.<br/>
-<br/>
+ The timeout in milliseconds after that a session backup is considered as beeing failed. This property is only evaluated if sessions are stored synchronously (set via _sessionBackupAsync_). The default value is _100_ milliseconds.
+
 _transcoderFactoryClass_ (since 1.1, optional, default _de.javakaffee.web.msm.!JavaSerializationTranscoderFactory_)
  The class name of the factory that creates the transcoder to use for serializing/deserializing sessions to/from memcached. The specified class must implement {{{de.javakaffee.web.msm.TranscoderFactory}}} and provide a no-args constructor. Other {{{TranscoderFactory}}} implementations are available through other packages/jars like _msm-kryo-serializer_, _msm-xstream-serializer_ and _msm-javolution-serializer_ (as describe above), those are listed and compared on SerializationStrategies.
 
@@ -106,10 +124,10 @@ _transcoderFactoryClass_ (since 1.1, optional, default _de.javakaffee.web.msm.!J
   ** [http://code.google.com/p/kryo/ Kryo] based serialization: {{{de.javakaffee.web.msm.serializer.kryo.KryoTranscoderFactory}}}
   ** Javolution based serialization: {{{de.javakaffee.web.msm.serializer.javolution.JavolutionTranscoderFactory}}}
   ** XStream based serialization: {{{de.javakaffee.web.msm.serializer.xstream.XStreamTranscoderFactory}}}
-<br/>
+
 _copyCollectionsForSerialization_ (since 1.1, optional, default _false_)
- A boolean value that specifies, if iterating over collection elements shall be done on a copy of the collection or on the collection itself. This configuration property must be supported by the serialization strategy specified with _transcoderFactoryClass_. Which strategy supports this feature can be seen in the column _Copy Collections before serialization_ in the list of  [SerializationStrategies#Available_serialization_strategies available serialization strategies]. This feature and its motivation is described more deeply at [SerializationStrategies#Concurrent_modifications_of_collections].<br/>
-<br/>
+ A boolean value that specifies, if iterating over collection elements shall be done on a copy of the collection or on the collection itself. This configuration property must be supported by the serialization strategy specified with _transcoderFactoryClass_. Which strategy supports this feature can be seen in the column _Copy Collections before serialization_ in the list of  [SerializationStrategies#Available_serialization_strategies available serialization strategies]. This feature and its motivation is described more deeply at [SerializationStrategies#Concurrent_modifications_of_collections].
+
 _customConverter_ (since 1.2, optional)
  Custom converter allow you to provide custom serialization of application specific types. Multiple custom converter class names are specified separated by comma (with optional space following the comma). Converter classes must be available in the classpath of the web application (place jars in {{{WEB-INF/lib}}}).<br/>
  This option is useful if you need some special serialization for a certain type or if reflection based serialization is just very verbose and you want to provide a more efficient serialization for a specific type.<br/>
@@ -124,10 +142,14 @@ _customConverter_ (since 1.2, optional)
   ** Javolution (converters provided by msm-javolution-serializer jar)
     ** {{{de.javakaffee.web.msm.serializer.javolution.JodaDateTimeFormat}}}: A more efficient serialization of Joda's [http://joda-time.sourceforge.net/api-release/index.html?org/joda/time/DateTime.html DateTime], see also [http://code.google.com/p/memcached-session-manager/issues/detail?id=32 issue #32].
     ** {{{de.javakaffee.web.msm.serializer.javolution.CGLibProxyFormat}}} : serializes/deserializes CGLIB proxies, see also [http://code.google.com/p/memcached-session-manager/issues/detail?id=59 issue #59].
-    ** {{{de.javakaffee.web.msm.serializer.javolution.HibernateCollectionsXMLFormat}}}: serializes/deserializes hibernate persistent collections (required if you store collections loaded by hibernate in your session).<br/>
-<br/>
+    ** {{{de.javakaffee.web.msm.serializer.javolution.HibernateCollectionsXMLFormat}}}: serializes/deserializes hibernate persistent collections (required if you store collections loaded by hibernate in your session).
+
 _enableStatistics_ (since 1.2, optional, default _true_)
  A boolean value that specifies, if statistics shall be gathered. For more info see the [JMXStatistics] page.
+
+_enabled_ (since 1.4.0, optional, default _true_)
+ Specifies if session storage in memcached is enabled or not, can also be changed at runtime via JMX. Only allowed in sticky mode.<br/>
+<br/>
 
 == Logging ==
 As the memcached-session-manager uses [http://code.google.com/p/spymemcached/ spymemcached] the [http://code.google.com/p/spymemcached/wiki/Logging logging hints of spymemcached] might be interesting to you.
