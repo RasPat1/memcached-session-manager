@@ -1,6 +1,18 @@
 #summary This page lists changes for each release of memcached-session-manager.
 #labels Featured
 
+= 1.3.6 to 1.4.0-RC1 =
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=77 #77]: Make memcached-session-manager work with Tomcat 7.x (thanx at Jorge Carabias for initial contribution)
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=70 #70]: Improve support for nonsticky sessions
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=71 #71]: Session locking for non-sticky sessions: all, auto detection of readonly requests, uri-pattern based
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=72 #72]: Add storage of non-sticky sessions in another/secondary memcached node, handle memcached failover for non-sticky sessions
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=74 #74]: Touching unmodified/not-updated sessions must be solved differently
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=68 #68]: Change of sessionId on login with BASIC auth must be handled correctly
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=66 #66]: Make SessionTrackerValve.setNewSessionCookie more robust (handle different possible cases)
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=65 #65]: Session cookie name is hardcoded to JSESSIONID
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=62 #62]: Support jvmRoutes containing dashes (-) (thanx at Paul G. Weiss for patches)
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=60 #60]: Add possibility to disable msm at runtime via JMX (thanx at Paul G. Weiss for patches)
+
 = 1.3.0 to 1.3.6 =
 
 [http://groups.google.com/group/memcached-session-manager/t/28540c1feec4b273 Announcement of release 1.3.6]
