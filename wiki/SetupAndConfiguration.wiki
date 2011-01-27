@@ -58,7 +58,6 @@ Configure the appropriate context in your {{{$CATALINA_HOME/conf/server.xml}}} s
     failoverNodes="n1"
     requestUriIgnorePattern=".*\.(png|gif|jpg|css|js)$"
     transcoderFactoryClass="de.javakaffee.web.msm.serializer.kryo.KryoTranscoderFactory"
-    customConverter="de.javakaffee.web.msm.serializer.kryo.JodaDateTimeRegistration"
     />
 </Context>
 }}}
@@ -72,7 +71,6 @@ For non-sticky sessions the configuration would look like this:
     lockingMode="uriPattern:/path1|/path2"
     requestUriIgnorePattern=".*\.(png|gif|jpg|css|js)$"
     transcoderFactoryClass="de.javakaffee.web.msm.serializer.kryo.KryoTranscoderFactory"
-    customConverter="de.javakaffee.web.msm.serializer.kryo.JodaDateTimeRegistration"
     />
 </Context>
 }}}
