@@ -100,7 +100,11 @@ _sticky_ (since 1.4.0, optional, default _true_)
  Specifies if sticky or non-sticky sessions are used.
 
 _lockingMode_ (since 1.4.0, optional, for non-sticky sessions only, default _none_)
- Specifies the locking strategy for non-sticky sessions, one of {{{none}}} (no locking at all), {{{all}}} (the session is locked when requested by the app until the end of the request), {{{auto}}} (readonly requests are auto detected, the session is only locked for requests that modify the session) or  {{{uriPattern:<regexp>}}} (the provided [http://java.sun.com/javase/6/docs/api/java/util/regex/Pattern.html regular expression pattern] is compared with the {{{requestURI}}} + "?" + {{{queryString}}} and the session is locked if they match).
+ Specifies the locking strategy for non-sticky sessions. Session locking is useful to prevent concurrent modifications and lost updates of the session in the case of parallel requests (tabbed browsing with long requests, ajax etc.). Session locking is done using memcached. Possible values for {{{lockingMode}}} are:
+  ** {{{none}}}: sessions are never locked
+  ** {{{all}}}: the session is locked when requested by the app until the end of the request
+  ** {{{auto}}}: readonly requests are detected, for them the session is not locked. For requests that are not classified as "readonly" the session is locked
+  ** {{{uriPattern:<regexp>}}}: the provided [http://java.sun.com/javase/6/docs/api/java/util/regex/Pattern.html regular expression pattern] is compared with the {{{requestURI}}} + "?" + {{{queryString}}} and the session is locked if they match.
 
 _requestUriIgnorePattern_ (optional)
  This attribute contains a regular expression for request URIs, that shall not trigger a session backup. If static resources like css, javascript, images etc. are delivered by the same tomcat and the same web application context these requests will also pass the memcached-session-manager. However, as these requests should not change anything in a http session, they should also not trigger a session backup. So you should check if any static resources are delivered by tomcat and in this case you should exclude them by using this attribute. The {{{requestUriIgnorePattern}}} must follow the java regex [http://java.sun.com/javase/6/docs/api/java/util/regex/Pattern.html Pattern].
