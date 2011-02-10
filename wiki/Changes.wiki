@@ -1,6 +1,17 @@
 #summary This page lists changes for each release of memcached-session-manager.
 #labels Featured
 
+= 1.4.0-RC1 to 1.4.0-RC3 =
+
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=82 #82]: tomcat7: Manager not properly reinitialized on context reload
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=80 #80]: Webapp context reload causes ClassCastException with sticky sessions
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=78 #78]: Add JMX performance stats for non-sticky session operations
+
+= 1.4.0-RC1 to 1.4.0-RC2 =
+
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=81 #81]: Background expiration update for session that was loaded from memcached fails
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=79 #79]: In non-sticky sessions mode with only a single memcached the backup is done in the primary node
+
 = 1.3.6 to 1.4.0-RC1 =
 
 [http://groups.google.com/group/memcached-session-manager/t/612891b0ae10649d Announcement of release 1.4.0-RC1]
