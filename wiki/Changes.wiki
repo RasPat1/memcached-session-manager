@@ -6,8 +6,8 @@
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=86 #86]: Don't load a non-sticky session from memcached when not accessed from request
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=85 #85]: Don't perform additional tasks for non-sticky sessions with invalid sessionId
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=84 #84]: Improve debug logging for non-sticky sessions and memcached failover
- * [http://code.google.com/p/memcached-session-manager/issues/detail?id=76 #76]: Nonsticky-session support: Check/implement listener notification on swapOut of sessions at the end of the request
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=83 #83]: Memcached node failover does not work for non-sticky sessions
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=76 #76]: Nonsticky-session support: Check/implement listener notification on swapOut of sessions at the end of the request
 
 = 1.4.0-RC2 to 1.4.0-RC3 =
 
