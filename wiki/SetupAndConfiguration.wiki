@@ -154,6 +154,12 @@ _enabled_ (since 1.4.0, optional, default _true_)
 <br/>
 
 == Logging ==
-If you want to enable fine grained / debug logging you can add `de.javakaffee.level=FINE` to `$CATALINA_HOME/conf/logging.properties`.
+If you want to enable fine grained / debug logging you can add
+
+{{{
+de.javakaffee.web.msm.level=FINE
+}}}
+
+to `$CATALINA_HOME/conf/logging.properties`.
 
 As the memcached-session-manager uses [http://code.google.com/p/spymemcached/ spymemcached] also the [http://code.google.com/p/spymemcached/wiki/Logging logging hints of spymemcached] might be interesting to you.
