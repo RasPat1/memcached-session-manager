@@ -56,7 +56,7 @@ Configure the appropriate context in your {{{$CATALINA_HOME/conf/server.xml}}} s
   <Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
     memcachedNodes="n1:localhost:11211 n2:localhost:11212"
     failoverNodes="n1"
-    requestUriIgnorePattern=".*\.(png|gif|jpg|css|js)$"
+    requestUriIgnorePattern=".*\.(ico|png|gif|jpg|css|js)$"
     transcoderFactoryClass="de.javakaffee.web.msm.serializer.kryo.KryoTranscoderFactory"
     />
 </Context>
@@ -69,7 +69,7 @@ For non-sticky sessions the configuration would look like this:
     memcachedNodes="n1:localhost:11211 n2:localhost:11212"
     sticky="false"
     lockingMode="uriPattern:/path1|/path2"
-    requestUriIgnorePattern=".*\.(png|gif|jpg|css|js)$"
+    requestUriIgnorePattern=".*\.(ico|png|gif|jpg|css|js)$"
     transcoderFactoryClass="de.javakaffee.web.msm.serializer.kryo.KryoTranscoderFactory"
     />
 </Context>
