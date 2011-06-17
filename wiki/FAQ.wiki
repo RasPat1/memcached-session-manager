@@ -2,7 +2,7 @@
 === Can I just use a servlet filter (& friends) instead? ===
 (Extract from the mailing list, "[http://groups.google.com/group/memcached-session-manager/browse_thread/thread/3630849929d81295 memcached session integration in application layer]")
 
-Basically it's possible to use a simple servlet filter etc. for keeping sessions in memcached (or membase etc.), but there are some things to be aware and that must be checked against your requirements.
+Basically it's possible to use a simple servlet filter etc. for keeping sessions in memcached (or membase etc.), but there are some things to be aware of and that must be checked against your requirements.
 
 Assuming that sticky sessions shall be used the main issue is sessionId handling: the servlet api does not allow you to specify/modify the sessionId. So you cannot encode the memcached-node of the session into the sessionId, and have to use hash based memcached node selection (be it consistent hashing or not). If a memcached fails, you can use failover handling of the memcached client lib of your choice
 and see if this matches your requirements.
