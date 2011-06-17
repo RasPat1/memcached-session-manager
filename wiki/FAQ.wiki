@@ -1,4 +1,14 @@
 #labels Phase-Support,Phase-Design
+=== Can I just use a servlet filter (& friends) instead? ===
+(Extract from the mailing list, "[http://groups.google.com/group/memcached-session-manager/browse_thread/thread/3630849929d81295 memcached session integration in application layer]")
+Basically it's possible to use a simple servlet filter etc. for keeping sessions in memcached (or membase etc.).
+
+Assuming that sticky sessions shall be used the main issue is sessionId handling: the servlet api does not allow you to specify/modify the sessionId. So you cannot encode the memcached-node of the session into the sessionId, and have to use hash based memcached node selection (be it consistent hashing or not). If a memcached fails, you can use failover handling of the memcached client lib of your choice
+and see if this matches your requirements.
+If you want to go for the servlet filter with sticky sessions, you also need to strip the jvmRoute off the sessionId to get the memcached key (in the case tomcats are configured with a jvmRoute). Otherwise, when the sessionId including the jvmRoute would be used as memcached key, the key would change on a tomcat failover as the jvmRoute is then changed to the one of the tomcat that is taking over the session.
+
+With non-sticky sessions there are some more things to be aware of: as you want to have no sessions in tomcat stored at all you have to manager sessionIds yourselves. This includes url rewriting and cookie handling. Also you have to handle concurrent session access from different app servers (introduced by tabbed browsing or ajax etc.). Probably there are some more details to be aware of, but these are the main issues that are already covered by memcached-session-manager.
+
 === Why is it not implemented as [http://tomcat.apache.org/tomcat-6.0-doc/api/org/apache/catalina/Store.html Store] for tomcats [http://tomcat.apache.org/tomcat-6.0-doc/api/org/apache/catalina/session/PersistentManagerBase.html PersistentManagerBase]? ===
 
 The [http://tomcat.apache.org/tomcat-6.0-doc/api/org/apache/catalina/Store.html Store] interface defines methods _getSize()_, _keys()_ and _clear()_ - these cannot be implemented with memcached.
@@ -8,7 +18,7 @@ Also [http://tomcat.apache.org/tomcat-6.0-doc/api/org/apache/catalina/session/Pe
 The memcached-session-manager instead backups a session after the request was finished, so only sessions that were (potentially) modified are sent to memcached.
 
 === How are memcached nodes selected for session backup? ===
-When a new session is created the memcached-session-manager does a simple round robin (random) to select the memcached node where to backup this session.
+When a new session is created the memcached-session-manager selects the memcached node randomly.
 
 === What's the format of the session id when using the memcached-session-manager? ===
 The memcached node is encoded in the session id like this: {{{<sessionId>-<node>[.<jvmRoute>]}}} (e.g. {{{602F7397FBE4D9932E59A9D0E52FE178-n1}}} without a jvm route, with the jvm route {{{602F7397FBE4D9932E59A9D0E52FE178-n1.tomcat0}}})
