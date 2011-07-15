@@ -26,7 +26,7 @@ So what needs to be done for this?
 Starting with release 1.1 there are several session serialization strategies available, as they are described on SerializationStrategies. The default strategy uses java serialization and is already provided by the memcached-session-manager jar. Other strategies are provided by separate jars, in the section below you'll see which jars are required for which strategy.
 
 == Configure tomcat ==
-The configuration of tomcat requires two things: you need to drop some jars in your {{{$CATALINA_HOME/lib/}}} directory and you have to configure the memcached session manager in the server.xml.
+The configuration of tomcat requires two things: you need to drop some jars in your {{{$CATALINA_HOME/lib/}}} and {{{WEB-INF/lib/}}} directories and you have to configure the memcached session manager in the related {{{<Context>}}} element (e.g. in {{{$CATALINA_HOME/conf/context.xml}}}).
 
 === Add jars to {{{$CATALINA_HOME/lib/}}} ===
 Independent of the chosen serialization strategy you always need the [http://memcached-session-manager.googlecode.com/files/memcached-session-manager-1.4.0.jar memcached-session-manager-1.4.0.jar] (for tomcat6, or [http://memcached-session-manager.googlecode.com/files/memcached-session-manager-tc7-1.4.0.jar memcached-session-manager-tc7-1.4.0.jar] for tomcat7) and the [http://spymemcached.googlecode.com/files/memcached-2.5.jar memcached-2.5.jar] (spymemcached). Just download and put them in {{{$CATALINA_HOME/lib/}}}.
@@ -49,10 +49,11 @@ If you want to use a custom serialization strategy (e.g. because of [Serializati
     * [http://www.extreme.indiana.edu/dist/java-repository/xpp3/jars/xpp3_min-1.1.3.4.O.jar xpp3_min-1.1.3.4.O.jar] (xml pull parser used by xstream)
     * [http://memcached-session-manager.googlecode.com/files/msm-xstream-serializer-1.4.0.jar msm-xstream-serializer-1.4.0.jar]
 
-=== Update server.xml ===
-Configure the appropriate context in your {{{$CATALINA_HOME/conf/server.xml}}} so that it contains the {{{Manager}}} configuration for the memcached-session-manager, like this example for sticky sessions:
+=== Configure {{{<Context>}}} element with memcached-session-manager ===
+Update the {{{<Context>}}} element (in {{{$CATALINA_HOME/conf/context.xml}}} or what else you choose for context definition, please check the related [http://tomcat.apache.org/tomcat-7.0-doc/config/context.html#Defining_a_context tomcat documentation] for this) so that it contains the {{{Manager}}} configuration for the memcached-session-manager, like this example for sticky sessions:
 {{{
-<Context path="" docBase="ROOT">
+<Context>
+  ...
   <Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
     memcachedNodes="n1:localhost:11211 n2:localhost:11212"
     failoverNodes="n1"
@@ -64,7 +65,8 @@ Configure the appropriate context in your {{{$CATALINA_HOME/conf/server.xml}}} s
 
 For non-sticky sessions the configuration would look like this:
 {{{
-<Context path="" docBase="ROOT">
+<Context>
+  ...
   <Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
     memcachedNodes="n1:localhost:11211 n2:localhost:11212"
     sticky="false"
