@@ -1,6 +1,13 @@
 #summary This page lists changes for each release of memcached-session-manager.
 #labels Featured
 
+= 1.4.1 to 1.5.0 =
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=101 #101]: Form based authentication does not work with non-sticky sessions
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=99 #99]: Add attribute filter to control which session attributes are serialized to memcached (new configuration attribute {{{sessionAttributeFilter}}} accepting a regular expression, e.g. {{{sessionAttributeFilter="^(userName|sessionHistory)$"}}}). (thanx at Rainer Jung for this contribution!)
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=98 #98]: Non-sticky sessions: Session meta data stored asynchronously with sessionBackupAsync="false"
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=97 #97]: Add support for jsf2/mojarra kryo serialization (added custom serializer for mojarras LRUMap, this can be added as customConverter: {{{de.javakaffee.web.msm.serializer.kryo.FacesLRUMapRegistration}}})
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=67 #67]: Make msm available in maven repository (available in maven central now under groupId "de.javakaffee.msm"). So that both tomcat6 and tomcat7 versions can be pushed in one step to maven central there was a restructuring needed, so that now there's a core module (not specific to a tomcat version) and the tomcat6 and tomcat7 modules. Therefore for installation two msm jars have to be put in {{{$CATALINA_HOME/lib}}}: {{{memcached-session-manager-${version}.jar}}} and {{{memcached-session-manager-tc7-${version}.jar}}} (or {{{memcached-session-manager-tc6-${version}.jar}}}.
+
 = 1.4.0 to 1.4.1 =
 
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=96 #96]: Tests fail occasionally on windows (only changes to unit-test libs)
