@@ -1,6 +1,10 @@
 #summary This page lists changes for each release of memcached-session-manager.
 #labels Featured
 
+= 1.5.0 to 1.5.1 =
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=106 #106]: Session not updated in memcached when only a session attribute was removed
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=105 #105]: Make memcached node optional for single-node setup, so that the sessionId is left unchanged in this case (e.g. memcachedNodes="localhost:11211"). If instead memcachedNodes="n1:localhost:11211" is used the nodeId is still appended to the sessionId.
+
 = 1.4.1 to 1.5.0 =
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=101 #101]: Form based authentication does not work with non-sticky sessions
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=99 #99]: Add attribute filter to control which session attributes are serialized to memcached (new configuration attribute {{{sessionAttributeFilter}}} accepting a regular expression, e.g. {{{sessionAttributeFilter="^(userName|sessionHistory)$"}}}). (thanx at Rainer Jung for this contribution!)
