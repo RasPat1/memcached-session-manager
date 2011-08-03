@@ -41,7 +41,7 @@ As msm is available in maven central (under groupId {{{de.javakaffee.msm}}}) you
 <dependency>
     <groupId>de.javakaffee.msm</groupId>
     <artifactId>msm-kryo-serializer</artifactId>
-    <version>1.5.0</version>
+    <version>1.5.1</version>
     <scope>runtime</scope>
 </dependency>
 }}}
@@ -54,7 +54,7 @@ Update the {{{<Context>}}} element (in {{{$CATALINA_HOME/conf/context.xml}}} or 
 <Context>
   ...
   <Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
-    memcachedNodes="n1:localhost:11211 n2:localhost:11212"
+    memcachedNodes="n1:localhost:11211,n2:localhost:11212"
     failoverNodes="n1"
     requestUriIgnorePattern=".*\.(ico|png|gif|jpg|css|js)$"
     transcoderFactoryClass="de.javakaffee.web.msm.serializer.kryo.KryoTranscoderFactory"
@@ -67,7 +67,7 @@ For non-sticky sessions the configuration would look like this:
 <Context>
   ...
   <Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
-    memcachedNodes="n1:localhost:11211 n2:localhost:11212"
+    memcachedNodes="n1:localhost:11211,n2:localhost:11212"
     sticky="false"
     lockingMode="uriPattern:/path1|/path2"
     requestUriIgnorePattern=".*\.(ico|png|gif|jpg|css|js)$"
@@ -89,7 +89,7 @@ _className_ (required)
   The configuration attributes {{{memcachedNodes}}} and {{{failoverNode}}} are not used to create a memcached client, so serialized session data will *not* be sent to memcached - and therefore no running memcacheds are required.
 
 _memcachedNodes_ (required)
-  This attribute must contain all memcached nodes you have running. Each memcached node is defined as {{{<id>:<host>:<port>}}}. Several definitions are separated by space or comma.
+  This attribute must contain all memcached nodes you have running. Each memcached node is defined as {{{<id>:<host>:<port>}}}. Several definitions are separated by space or comma (e.g. {{{memcachedNodes="n1:app01:11211,n2:app02:11211"}}}).<br/> For a single node the {{{<id>}}} is optional so that it's allowed to set only {{{<host>:<port>}}} (e.g. {{{memcachedNodes="localhost:11211"}}}). Then the sessionId will be left unchanged (no node id appended). This option is meant for the usage with e.g. membase+moxi, where each tomcat knows only a single "memcached" node (moxi actually).
 
 _failoverNodes_ (optional, must not be used for non-sticky sessions)
  This attribute must contain the ids of the memcached nodes, that shall not be used by this tomcat for session backup, but only if no other memcached nodes are available. Therefore, you should list those memcached nodes, that are running on the same machine as this tomcat. Several memcached node ids are separated by space or comma. For non-sticky sessions failoverNodes must not be specified as a session is not tied to a single tomcat.
