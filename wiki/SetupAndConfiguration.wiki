@@ -168,3 +168,17 @@ de.javakaffee.web.msm.level=FINE
 to `$CATALINA_HOME/conf/logging.properties`.
 
 As the memcached-session-manager uses [http://code.google.com/p/spymemcached/ spymemcached] also the [http://code.google.com/p/spymemcached/wiki/Logging logging hints of spymemcached] might be interesting to you.
+A short summary how you can make spymemcached more silent:
+  # Add the following to `$CATALINA_HOME/bin/catalina.sh`:
+{{{
+CATALINA_OPTS="-Dnet.spy.log.LoggerImpl=net.spy.memcached.compat.log.SunLogger"
+}}}
+  # Add this to `$CATALINA_HOME/conf/logging.properties`:
+{{{
+# A handler's log level threshold can be set using SEVERE, WARNING, INFO, CONFIG, FINE, FINER, FINEST or ALL
+net.spy.memcached.level = WARNING
+# To make only the MemcachedConnection less verbose:
+#net.spy.memcached.MemcachedConnection.level = WARNING
+}}}
+
+More info about logging in tomcat can be found in the [http://tomcat.apache.org/tomcat-7.0-doc/logging.html tomcat logging documentation].
