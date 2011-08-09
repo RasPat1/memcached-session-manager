@@ -1,6 +1,8 @@
 #summary This page shows what's necessary to get the memcached-session-manager up and running.
 #labels Featured,Phase-Deploy
 
+<wiki:toc max_depth="2" />
+
 = Introduction =
 
 For the most simple integration you just need to have a tomcat (6 or 7) and a memcached installed (or s.th. supporting the memcached protocol).
@@ -18,20 +20,18 @@ Tomcat-1 (t1) will primarily store it's sessions in memcached-2 (m2) which is ru
 <m1>   <m2>
 }}}
 
-= Details =
-
 So what needs to be done for this?
 
-== Decide which serialization strategy to use ==
+= Decide which serialization strategy to use =
 Starting with release 1.1 there are several session serialization strategies available, as they are described on SerializationStrategies. The default strategy uses java serialization and is already provided by the memcached-session-manager jar. Other strategies are provided by separate jars, in the section below you'll see which jars are required for which strategy.
 
-== Configure tomcat ==
+= Configure tomcat =
 The configuration of tomcat requires two things: you need to drop some jars in your {{{$CATALINA_HOME/lib/}}} and {{{WEB-INF/lib/}}} directories and you have to configure the memcached session manager in the related {{{<Context>}}} element (e.g. in {{{$CATALINA_HOME/conf/context.xml}}}).
 
-=== Add jars to {{{$CATALINA_HOME/lib/}}} ===
+== Add memcached-session-manager jars to tomcat ==
 Independent of the chosen serialization strategy you always need the [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager/ memcached-session-manager-${version}.jar] and either [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager-tc6/ memcached-session-manager-tc6-${version}.jar] for tomcat6 or [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager-tc6/ memcached-session-manager-tc7-${version}.jar] for tomcat7. Also the [http://spymemcached.googlecode.com/files/memcached-2.5.jar memcached-2.5.jar] (spymemcached). Just download and put them in {{{$CATALINA_HOME/lib/}}}.
 
-=== Optional: Add custom serializer as dependency to your webapp ===
+== Add custom serializers to your webapp (optional) ==
 If you want to use java's built in serialization nothing more has to be done.
 If you want to use a custom serialization strategy (e.g. because of [SerializationStrategyBenchmark better performance]) this has to be deployed with your webapp so that they're available in {{{WEB-INF/lib/}}}.
 
@@ -48,7 +48,7 @@ As msm is available in maven central (under groupId {{{de.javakaffee.msm}}}) you
 
 For javolution the artifactId is {{{msm-javolution-serializer}}}, for xstream it's {{{msm-xstream-serializer}}}.
 
-=== Configure {{{<Context>}}} element with memcached-session-manager ===
+== Configure memcached-session-manager as  {{{<Context>}}} Manager ==
 Update the {{{<Context>}}} element (in {{{$CATALINA_HOME/conf/context.xml}}} or what else you choose for context definition, please check the related [http://tomcat.apache.org/tomcat-7.0-doc/config/context.html#Defining_a_context tomcat documentation] for this) so that it contains the {{{Manager}}} configuration for the memcached-session-manager, like this example for sticky sessions:
 {{{
 <Context>
@@ -82,7 +82,7 @@ Now you have finished the configuration of your first tomcat. For the second tom
 
 After this is done, you can just start your application and sessions will be stored in the configured memcached nodes as configured. Now you should do some tests with a simulated tomcat failure, a restart of a memcached node etc. - have fun! :-)
 
-=== !MemcachedBackupSessionManager configuration attributes ===
+== Overview over memcached-session-manager configuration attributes ==
 
 _className_ (required)
   This should be set to {{{de.javakaffee.web.msm.MemcachedBackupSessionManager}}} to get sessions stored in memcached. However, since version 1.3.6 there's also a {{{de.javakaffee.web.msm.DummyMemcachedBackupSessionManager}}} that can be used for development purposes: it simply serializes sessions to a special in memory map and deserializes the serialized data at the next request when a session is requested (without really using this session) - just to see if deserialization is working for each request. Your application is still using sessions as if the memcached-session-manager (or !DummyMemcachedBackupSessionManager) would not be existing. Session serialization/deserialization is done asynchronously.
@@ -158,7 +158,7 @@ _enabled_ (since 1.4.0, optional, default _true_)
  Specifies if session storage in memcached is enabled or not, can also be changed at runtime via JMX. Only allowed in sticky mode.<br/>
 <br/>
 
-== Logging ==
+= Configure logging =
 If you want to enable fine grained / debug logging you can add
 
 {{{
