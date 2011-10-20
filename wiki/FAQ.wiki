@@ -1,4 +1,4 @@
-#labels Phase-Support,Phase-Design
+#labels Phase-Support,Phase-Design,Featured
 === How are sessions stored in memcached in non-sticky mode? ===
 For non-sticky sessions one of the nodes is randomly elected as primary
 node (the nodeId is encoded in the sessionId). The logical "next" node
