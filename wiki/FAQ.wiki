@@ -1,4 +1,26 @@
 #labels Phase-Support,Phase-Design
+=== How are session stored in memcached in non-sticky mode? ===
+For non-sticky sessions one of the nodes is randomly elected as primary
+node (the nodeId is encoded in the sessionId). The logical "next" node
+is chosen as backup node. The session is stored in the primary node and
+additionally in the backup node (under a key "{{{bak:<sessionId>}}}").
+On further requests the session is updated in both primary and backup
+nodes, if it wasn't modified the session is only "pinged" in memcached
+(to prevent expiration).
+
+=== What happens in non-sticky mode when a memcached node fails? ===
+a) Primary node fails: When the primary node is not available for a
+request (so that the session cannot be loaded from the primary node), it
+will be pulled from the backup node and the backup node will become the
+primary node. When the backup for the session shall be saved, the backup
+node will be the next node relative to the new primary one. As an
+example, with nodes n1, n2, n3: first n2 would be primary and n3 backup
+node. When n2 fails n3 will become the primary and n1 will be used as
+backup node.
+
+b) Backup node fails: When the backup node fails the backup will be skipped.
+
+
 === Can I just use a servlet filter (& friends) instead? ===
 (Extract from the mailing list, "[http://groups.google.com/group/memcached-session-manager/browse_thread/thread/3630849929d81295 memcached session integration in application layer]")
 
