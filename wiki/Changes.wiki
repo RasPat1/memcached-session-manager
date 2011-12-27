@@ -1,6 +1,17 @@
 #summary This page lists changes for each release of memcached-session-manager.
 #labels Featured
 
+= 1.5.1 to 1.6.0 =
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=118 #118]: Add configurable memcached operation timeout (contributed by Erik Swenson)
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=116 #116]: Non-sticky sessions: Calling session.invalidate() causes "Found no validity info for session..." logging
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=115 #115]: Support membase buckets (membase bucket uris) and SASL (initial contribution by Pradeep Gummi)
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=114 #114]: msm-kyro-serializer 1.5.1 pom in maven central includes invalid dependencies
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=113 #113]: Backup of a session should take place on the next available node when the next logical node is unavailable.
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=112 #112]: No validity info stored for non-sticky sessions and memcachedNodes config without node-part (e.g. memcachedNodes="localhost:11211")
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=111 #111]: Concurrent requests for a non-sticky session on the same tomcat may interfere
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=109 #109]: Add flexjson serializer strategy (contribution by Sandeep More)
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=107 #107]: Add custom kryo serializer for GrailsFlashScope
+
 = 1.5.0 to 1.5.1 =
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=106 #106]: Session not updated in memcached when only a session attribute was removed
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=105 #105]: Make memcached node optional for single-node setup, so that the sessionId is left unchanged in this case (e.g. memcachedNodes="localhost:11211"). If instead memcachedNodes="n1:localhost:11211" is used the nodeId is still appended to the sessionId.
