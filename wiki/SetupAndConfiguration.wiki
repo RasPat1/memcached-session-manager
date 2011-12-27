@@ -29,7 +29,7 @@ Starting with release 1.1 there are several session serialization strategies ava
 The configuration of tomcat requires two things: you need to drop some jars in your {{{$CATALINA_HOME/lib/}}} and {{{WEB-INF/lib/}}} directories and you have to configure the memcached session manager in the related {{{<Context>}}} element (e.g. in {{{$CATALINA_HOME/conf/context.xml}}}).
 
 == Add memcached-session-manager jars to tomcat ==
-Independent of the chosen serialization strategy you always need the [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager/ memcached-session-manager-${version}.jar] and either [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager-tc6/ memcached-session-manager-tc6-${version}.jar] for tomcat6 or [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager-tc6/ memcached-session-manager-tc7-${version}.jar] for tomcat7. Also the [http://spymemcached.googlecode.com/files/memcached-2.5.jar memcached-2.5.jar] (spymemcached). Just download and put them in {{{$CATALINA_HOME/lib/}}}.
+Independent of the chosen serialization strategy you always need the [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager/ memcached-session-manager-${version}.jar] and either [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager-tc6/ memcached-session-manager-tc6-${version}.jar] for tomcat6 or [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager-tc6/ memcached-session-manager-tc7-${version}.jar] for tomcat7. Also the [http://code.google.com/p/spymemcached/downloads/detail?name=spymemcached-2.7.3.jar spymemcached-2.7.3.jar]. Just download and put them in {{{$CATALINA_HOME/lib/}}}.
 
 == Add custom serializers to your webapp (optional) ==
 If you want to use java's built in serialization nothing more has to be done.
@@ -76,7 +76,23 @@ For non-sticky sessions the configuration would look like this:
 </Context>
 }}}
 
-These example configurations assume, that you have running two memcached nodes on localhost, one on port 11211 and another one on port 11212, and that you want to use kryo based serialization. More details to configuration attributes are provided in the section below.
+These example configurations assume, that you have running two memcached nodes on localhost, one on port 11211 and another one on port 11212, and that you want to use kryo based serialization.
+
+To connect to a membase bucket "bucket1" the configuration would look like this:
+{{{
+<Context>
+  ...
+  <Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
+    memcachedNodes="http://localhost:8091/pools"
+    username="bucket1"
+    password="topsecret"
+    memcachedProtocol="binary"
+    sticky="false"
+    />
+</Context>
+}}}
+
+More details to all configuration attributes are provided in the section below.
 
 Now you have finished the configuration of your first tomcat. For the second tomcat you just need to change the failover node when you're using sticky sessions.
 
@@ -89,10 +105,16 @@ _className_ (required)
   The configuration attributes {{{memcachedNodes}}} and {{{failoverNode}}} are not used to create a memcached client, so serialized session data will *not* be sent to memcached - and therefore no running memcacheds are required.
 
 _memcachedNodes_ (required)
-  This attribute must contain all memcached nodes you have running. Each memcached node is defined as {{{<id>:<host>:<port>}}}. Several definitions are separated by space or comma (e.g. {{{memcachedNodes="n1:app01:11211,n2:app02:11211"}}}).<br/> For a single node the {{{<id>}}} is optional so that it's allowed to set only {{{<host>:<port>}}} (e.g. {{{memcachedNodes="localhost:11211"}}}). Then the sessionId will be left unchanged (no node id appended). This option is meant for the usage with e.g. membase+moxi, where each tomcat knows only a single "memcached" node (moxi actually).
+  This attribute must contain all memcached nodes you have running, or the membase bucket uri(s).<br/>memcached nodes: Each memcached node is defined as {{{<id>:<host>:<port>}}}. Several definitions are separated by space or comma (e.g. {{{memcachedNodes="n1:app01:11211,n2:app02:11211"}}}). For a single node the {{{<id>}}} is optional so that it's allowed to set only {{{<host>:<port>}}} (e.g. {{{memcachedNodes="localhost:11211"}}}). Then the sessionId will be left unchanged (no node id appended). This option is useful for the usage with e.g. membase+moxi, where each tomcat knows only a single "memcached" node (moxi actually).<br/> membase (since 1.6.0): For usage with membase it's possible to specify one or more membase bucket uris, e.g. {{{http://host1:8091/pools,http://host2:8091/pools}}}. Bucket name and password are specified via the attributes {{{username}}} and {{{password}}} (see below). Connecting to membase buckets requires the binary memcached protocol.
 
 _failoverNodes_ (optional, must not be used for non-sticky sessions)
  This attribute must contain the ids of the memcached nodes, that shall not be used by this tomcat for session backup, but only if no other memcached nodes are available. Therefore, you should list those memcached nodes, that are running on the same machine as this tomcat. Several memcached node ids are separated by space or comma. For non-sticky sessions failoverNodes must not be specified as a session is not tied to a single tomcat.
+
+_username_ (since 1.6.0, optional)
+ Specifies the username used for a membase bucket or SASL. If the _memcachedNodes_ contains a membase bucket uri (or multiple) this is the bucket name. If the _memcachedNodes_ contains memcached node definitions this is the username used for SASL authentication. Both require the binary memcached protocol.
+
+_password_ (since 1.6.0, optional)
+ Specifies the password used for membase bucket or SASL authentication (can be left empty / omitted if the "default" membase bucket without a password shall be used).
 
 _memcachedProtocol_ (since 1.3, optional, default _text_)
   This attribute specifies the memcached protocol to use, one of _text_ or _binary_.
@@ -118,6 +140,9 @@ _backupThreadCount_ (since 1.3, optional, default _number-of-cpu-cores_)
 
 _sessionBackupTimeout_ (optional, default _100_)
  The timeout in milliseconds after that a session backup is considered as beeing failed. This property is only evaluated if sessions are stored synchronously (set via _sessionBackupAsync_). The default value is _100_ milliseconds.
+
+_operationTimeout_ (since 1.6.0, optional, default _1000_)
+ The memcached operation timeout used at various places, e.g. used for the spymemcached !ConnectionFactory.
 
 _sessionAttributeFilter_ (since 1.5.0, optional)
  A regular expression to control which session attributes are serialized to memcached. The regular expression is evaluated with session attribute names. E.g. {{{sessionAttributeFilter="^(userName|sessionHistory)$"}}} specifies that only "userName" and "sessionHistory" attributes are stored in memcached. Works independently from the chosen serialization strategy.
@@ -146,6 +171,7 @@ _customConverter_ (since 1.2, optional)
     ** {{{de.javakaffee.web.msm.serializer.kryo.HibernateCollectionsSerializerFactory}}}: serializes/deserializes hibernate persistent collections (required if you store collections loaded by hibernate in your session).
     ** {{{de.javakaffee.web.msm.serializer.kryo.WicketSerializerFactory}}}: required if you're running a wicket web application.
     ** {{{de.javakaffee.web.msm.serializer.kryo.FacesLRUMapRegistration}}}: Needed if kryo serialization shall be used in combination with JSF2/Mojarra (see also [http://code.google.com/p/memcached-session-manager/issues/detail?id=97 issue #97]).
+    ** {{{de.javakaffee.web.msm.serializer.kryo.GrailsFlashScopeRegistration}}}: Support for grails flash scope (see also [http://code.google.com/p/memcached-session-manager/issues/detail?id=107 issue #107]).
   ** Javolution (converters provided by msm-javolution-serializer jar)
     ** {{{de.javakaffee.web.msm.serializer.javolution.JodaDateTimeFormat}}}: A more efficient serialization of Joda's [http://joda-time.sourceforge.net/api-release/index.html?org/joda/time/DateTime.html DateTime], see also [http://code.google.com/p/memcached-session-manager/issues/detail?id=32 issue #32].
     ** {{{de.javakaffee.web.msm.serializer.javolution.CGLibProxyFormat}}} : serializes/deserializes CGLIB proxies, see also [http://code.google.com/p/memcached-session-manager/issues/detail?id=59 issue #59].
