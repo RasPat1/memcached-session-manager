@@ -69,6 +69,7 @@ For non-sticky sessions the configuration would look like this:
   <Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
     memcachedNodes="n1:localhost:11211,n2:localhost:11212"
     sticky="false"
+    sessionBackupAsync="false"
     lockingMode="uriPattern:/path1|/path2"
     requestUriIgnorePattern=".*\.(ico|png|gif|jpg|css|js)$"
     transcoderFactoryClass="de.javakaffee.web.msm.serializer.kryo.KryoTranscoderFactory"
@@ -88,6 +89,9 @@ To connect to a membase bucket "bucket1" the configuration would look like this:
     password="topsecret"
     memcachedProtocol="binary"
     sticky="false"
+    sessionBackupAsync="false"
+    requestUriIgnorePattern=".*\.(ico|png|gif|jpg|css|js)$"
+    transcoderFactoryClass="de.javakaffee.web.msm.serializer.kryo.KryoTranscoderFactory"
     />
 </Context>
 }}}
