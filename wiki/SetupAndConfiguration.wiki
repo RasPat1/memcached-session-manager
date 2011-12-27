@@ -35,7 +35,7 @@ Independent of the chosen serialization strategy you always need the [http://rep
 If you want to use java's built in serialization nothing more has to be done.
 If you want to use a custom serialization strategy (e.g. because of [SerializationStrategyBenchmark better performance]) this has to be deployed with your webapp so that they're available in {{{WEB-INF/lib/}}}.
 
-As msm is available in maven central (under groupId {{{de.javakaffee.msm}}}) you can just pull it in using the dependency management of your build system. With maven for the kryo-serializer you can use this dependency definition:
+As msm is available in maven central (under groupId {{{de.javakaffee.msm}}}) you can just pull it in using the dependency management of your build system. With maven you can use this dependency definition for the kryo-serializer:
 
 {{{
 <dependency>
