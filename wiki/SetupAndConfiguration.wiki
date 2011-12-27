@@ -41,7 +41,7 @@ As msm is available in maven central (under groupId {{{de.javakaffee.msm}}}) you
 <dependency>
     <groupId>de.javakaffee.msm</groupId>
     <artifactId>msm-kryo-serializer</artifactId>
-    <version>1.5.1</version>
+    <version>1.6.0</version>
     <scope>runtime</scope>
 </dependency>
 }}}
