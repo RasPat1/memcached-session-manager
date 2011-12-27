@@ -49,12 +49,16 @@ As msm is available in maven central (under groupId {{{de.javakaffee.msm}}}) you
 For javolution the artifactId is {{{msm-javolution-serializer}}}, for xstream {{{msm-xstream-serializer}}} and for flexjson it's {{{msm-flexjson-serializer}}}.
 
 == Configure memcached-session-manager as  {{{<Context>}}} Manager ==
-Update the {{{<Context>}}} element (in {{{$CATALINA_HOME/conf/context.xml}}} or what else you choose for context definition, please check the related [http://tomcat.apache.org/tomcat-7.0-doc/config/context.html#Defining_a_context tomcat documentation] for this) so that it contains the {{{Manager}}} configuration for the memcached-session-manager, like this example for sticky sessions:
+Update the {{{<Context>}}} element (in {{{$CATALINA_HOME/conf/context.xml}}} or what else you choose for context definition, please check the related [http://tomcat.apache.org/tomcat-7.0-doc/config/context.html#Defining_a_context tomcat documentation] for this) so that it contains the {{{Manager}}} configuration for the memcached-session-manager, like in the examples below.
+
+The following examples show configurations for sticky sessions and non-sticky sessions with memcached servers and for non-sticky sessions with membase. The examples with memcached servers assume that there are two memcacheds running, one on host1 and another one on host2. All sample configurations assume that you want to use kryo based serialization.
+
+The following example shows the configuration of the first tomcat, assuming that it runs on host1, together with memcached "n1". The attribute {{{failoverNodes="n1"}}} tells msm to store sessions preferably in memcached "n2" and only store sessions in "n1" (running on the same host/machine) if no other memcached node (here only n2) is available (even if host1 goes down completely, the session is still available in memcached "n2" and could be served by the tomcat on host2). For the second tomcat (on host2) you just need to change the failover node to "n2", so that it prefers the memcached "n1". Everything else should be left unchanged.
 {{{
 <Context>
   ...
   <Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
-    memcachedNodes="n1:localhost:11211,n2:localhost:11212"
+    memcachedNodes="n1:host1.yourdomain.com:11211,n2:host2.yourdomain.com:11211"
     failoverNodes="n1"
     requestUriIgnorePattern=".*\.(ico|png|gif|jpg|css|js)$"
     transcoderFactoryClass="de.javakaffee.web.msm.serializer.kryo.KryoTranscoderFactory"
@@ -62,12 +66,13 @@ Update the {{{<Context>}}} element (in {{{$CATALINA_HOME/conf/context.xml}}} or 
 </Context>
 }}}
 
-For non-sticky sessions the configuration would look like this:
+The following example shows a configuration for non-sticky sessions. In this case there's no need for {{{failoverNodes}}}, as sessions are served by all tomcats round-robin and they're not bound to a single tomcat. For non-sticky sessions the configuration (for both/all tomcats) would look like this:
+
 {{{
 <Context>
   ...
   <Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
-    memcachedNodes="n1:localhost:11211,n2:localhost:11212"
+    memcachedNodes="n1:host1.yourdomain.com:11211,n2:host2.yourdomain.com:11211"
     sticky="false"
     sessionBackupAsync="false"
     lockingMode="uriPattern:/path1|/path2"
@@ -77,14 +82,12 @@ For non-sticky sessions the configuration would look like this:
 </Context>
 }}}
 
-These example configurations assume, that you have running two memcached nodes on localhost, one on port 11211 and another one on port 11212, and that you want to use kryo based serialization.
-
 To connect to a membase bucket "bucket1" the configuration would look like this:
 {{{
 <Context>
   ...
   <Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
-    memcachedNodes="http://localhost:8091/pools"
+    memcachedNodes="http://host1.yourdomain.com:8091/pools"
     username="bucket1"
     password="topsecret"
     memcachedProtocol="binary"
@@ -96,11 +99,9 @@ To connect to a membase bucket "bucket1" the configuration would look like this:
 </Context>
 }}}
 
-More details to all configuration attributes are provided in the section below.
+More details for all configuration attributes are provided in the section below.
 
-Now you have finished the configuration of your first tomcat. For the second tomcat you just need to change the failover node when you're using sticky sessions.
-
-After this is done, you can just start your application and sessions will be stored in the configured memcached nodes as configured. Now you should do some tests with a simulated tomcat failure, a restart of a memcached node etc. - have fun! :-)
+After you have configured msm in the {{{Context/Manager}}} element, you can just start your application and sessions will be stored in the memcached nodes or in membase as configured. Now you should do some tests with a simulated tomcat failure, a restart of a memcached node etc. - have fun! :-)
 
 == Overview over memcached-session-manager configuration attributes ==
 
