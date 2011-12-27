@@ -46,7 +46,7 @@ As msm is available in maven central (under groupId {{{de.javakaffee.msm}}}) you
 </dependency>
 }}}
 
-For javolution the artifactId is {{{msm-javolution-serializer}}}, for xstream it's {{{msm-xstream-serializer}}}.
+For javolution the artifactId is {{{msm-javolution-serializer}}}, for xstream {{{msm-xstream-serializer}}} and for flexjson it's {{{msm-flexjson-serializer}}}.
 
 == Configure memcached-session-manager as  {{{<Context>}}} Manager ==
 Update the {{{<Context>}}} element (in {{{$CATALINA_HOME/conf/context.xml}}} or what else you choose for context definition, please check the related [http://tomcat.apache.org/tomcat-7.0-doc/config/context.html#Defining_a_context tomcat documentation] for this) so that it contains the {{{Manager}}} configuration for the memcached-session-manager, like this example for sticky sessions:
