@@ -48,6 +48,12 @@ As msm is available in maven central (under groupId {{{de.javakaffee.msm}}}) you
 
 For javolution the artifactId is {{{msm-javolution-serializer}}}, for xstream {{{msm-xstream-serializer}}} and for flexjson it's {{{msm-flexjson-serializer}}}.
 
+If you're not using a dependency management based on maven repositories these are the jars you need for the different serializers:
+  * kryo-serializer: [http://repo1.maven.org/maven2/de/javakaffee/msm/msm-kryo-serializer/ msm-kryo-serializer], [http://repo1.maven.org/maven2/de/javakaffee/kryo-serializers/ kryo-serializers], [http://repo1.maven.org/maven2/com/googlecode/kryo/ kryo], [http://repo1.maven.org/maven2/com/googlecode/minlog/ minlog], [http://repo1.maven.org/maven2/com/googlecode/reflectasm/ reflectasm], [http://repo1.maven.org/maven2/asm/asm/3.2/ asm-3.2]
+  * javolution-serializer: [http://repo1.maven.org/maven2/de/javakaffee/msm/msm-javolution-serializer/ msm-javolution-serializer], [http://memcached-session-manager.googlecode.com/svn/maven/javolution/javolution/5.4.3.1/ javolution-5.4.3.1]
+  * xstream-serializer: [http://repo1.maven.org/maven2/de/javakaffee/msm/msm-xstream-serializer/ msm-xstream-serializer], [http://repo1.maven.org/maven2/com/thoughtworks/xstream/xstream/ xstream], [http://repo1.maven.org/maven2/xmlpull/xmlpull/ xmlpull], [http://repo1.maven.org/maven2/xpp3/xpp3_min/ xpp3_min]
+  * flexjson-serializer: [http://repo1.maven.org/maven2/de/javakaffee/msm/msm-flexjson-serializer/ msm-flexjson-serializer], [http://repo1.maven.org/maven2/net/sf/flexjson/flexjson/ flexjson]
+
 == Configure memcached-session-manager as  {{{<Context>}}} Manager ==
 Update the {{{<Context>}}} element (in {{{$CATALINA_HOME/conf/context.xml}}} or what else you choose for context definition, please check the related [http://tomcat.apache.org/tomcat-7.0-doc/config/context.html#Defining_a_context tomcat documentation] for this) so that it contains the {{{Manager}}} configuration for the memcached-session-manager, like in the examples below.
 
