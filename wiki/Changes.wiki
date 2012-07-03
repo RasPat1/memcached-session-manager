@@ -1,6 +1,19 @@
 #summary This page lists changes for each release of memcached-session-manager.
 #labels Featured
 
+= 1.6.1 to 1.6.2 =
+ * [https://github.com/magro/memcached-session-manager/commit/2d9eb930 2d9eb930] When non-sticky session lock is released wait until the lock is removed in memcached
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=144 #144]: When a non-sticky, locked session is expire()'ed the lock should be released
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=142 #142]: Form based authentication/login not working with non-sticky sessions
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=141 #141]: Non-sticky session should be loaded for ignored resources with container managed auth
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=140 #140]: Improve lockingStrategy "auto": add HTTP method to url identification
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=138 #138]: Fix support for !ServletRequestListeners and tomcat 7.0.22+
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=129 #129]: Non-sticky sessions: locking fails if operation timeout is high and long locks
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=124 #124]: SASL not working with multiple memcached servers (thanx to Angelo Obreja)
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=122 #122]: It is not necessay to loadFromMemcached in createSession
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=120 #120]: Non-expiring, non-sticky sessions are always invalid when loaded from backup node
+ * [https://github.com/magro/memcached-session-manager/commit/77182d42 77182d42] Use requestURI + queryString to check if uriIgnorePattern matches.
+
 = 1.6.0 to 1.6.1 =
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=119 #119]: Support locking with single node (without node-id) configuration
 
