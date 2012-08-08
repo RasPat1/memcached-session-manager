@@ -2,7 +2,7 @@
 #labels Featured
 
 = 1.6.2 to 1.6.3 =
- * [https://github.com/magro/memcached-session-manager/commit/5bbb5ab5 5bbb5ab5] Upgrade to kryo-serializers 0.10 with new DateSerializer (also the SubListSerializer was improved/fixed to work with java7)
+ * [https://github.com/magro/memcached-session-manager/commit/5bbb5ab5 5bbb5ab5] Upgrade to kryo-serializers 0.10 with new !DateSerializer (also the !SubListSerializer was improved/fixed to work with java7)
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=148 #148]: "java.io.IOException: Could not serialize object" - javolution serialization failed on windows7 (due to debug output)
 
 = 1.6.1 to 1.6.2 =
