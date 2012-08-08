@@ -1,6 +1,10 @@
 #summary This page lists changes for each release of memcached-session-manager.
 #labels Featured
 
+= 1.6.2 to 1.6.3 =
+ * [https://github.com/magro/memcached-session-manager/commit/5bbb5ab5 5bbb5ab5] Upgrade to kryo-serializers 0.10 with new DateSerializer (also the SubListSerializer was improved/fixed to work with java7)
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=148 #148]: "java.io.IOException: Could not serialize object" - javolution serialization failed on windows7 (due to debug output)
+
 = 1.6.1 to 1.6.2 =
  * [https://github.com/magro/memcached-session-manager/commit/2d9eb930 2d9eb930] When non-sticky session lock is released wait until the lock is removed in memcached
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=144 #144]: When a non-sticky, locked session is expire()'ed the lock should be released
