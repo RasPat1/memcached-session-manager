@@ -20,6 +20,34 @@ backup node.
 
 b) Backup node fails: When the backup node fails the backup will be skipped.
 
+=== I have several (sticky) tomcats and memcached nodes, how shall I configure `failoverNodes` for each tomcat? ===
+`failoverNodes` are for setups where some tomcats and memcacheds are
+running on the same machine. When the machine serving a tomcat crashes
+the session can only be served by another tomcat when the session is
+stored in a memcached running on a different machine.
+So a tomcat shall write sessions preferrably to memcacheds running on
+other machines, and store sessions only in a memcached running on the
+same machine when no other memcached is available. That's the meaning of
+failoverNodes.
+
+Some examples:
+
+  # Example
+    * machines m1, m2
+    * tomcats t1, t2 on m1, t3, t4 on m2
+    * memcached nodes n1 on m1, n2 on m2
+    * -> `failoverNodes` for t1 and t2 = n1, `failoverNodes` for t3 and t4 = n2
+  # Example
+    * machines m1, m2, m3, m4
+    * tomcats t1 on m1, t2 on m2, t3 on m3 and t4 on m4
+    * memcaches n1 on m1, n2 on m2, n3 on m3, n4 on m4
+    * -> t1.`failoverNodes` = n1, t2.`failoverNodes` = n2, t3.`failoverNodes` = n3, t4.`failoverNodes` = n4
+  # Example
+    * machines m1, m2, m3, m4
+    * tomcats t1 on m1, t2 on m2
+    * memcacheds n1 on m3, n2 on m4
+    * -> t1.`failoverNodes` and t2.`failoverNodes` = `<empty>` (not needed in this case)
+
 
 === Can I just use a servlet filter (& friends) instead? ===
 (Extract from the mailing list, "[http://groups.google.com/group/memcached-session-manager/browse_thread/thread/3630849929d81295 memcached session integration in application layer]")
