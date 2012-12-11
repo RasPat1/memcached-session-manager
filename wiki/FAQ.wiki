@@ -68,11 +68,14 @@ Also [http://tomcat.apache.org/tomcat-6.0-doc/api/org/apache/catalina/session/Pe
 
 The memcached-session-manager instead backups a session after the request was finished, so only sessions that were (potentially) modified are sent to memcached.
 
+=== How does msm compare to tomcats `DeltaManager` or `BackupManager`? ===
+The `DeltaManager` does an all-to-all replication which limits scalability.
+The `BackupManager` (according to the docs [http://tomcat.apache.org/tomcat-7.0-doc/cluster-howto.html not quite as battle tested as the delta manager]) does a replication to another tomcat, which requires special configuration in the load balancer to support this.
+
+Both are using java serialization - for the memcached-session-manager the serialization strategy is pluggable and one implementation is based on [http://code.google.com/p/kryo/ kryo], one of the [https://github.com/eishay/jvm-serializers/wiki/Staging-Results fastest serialization libs] as of today (2012).
+
 === How are memcached nodes selected for session backup? ===
 When a new session is created the memcached-session-manager selects the memcached node randomly.
 
 === What's the format of the session id when using the memcached-session-manager? ===
 The memcached node is encoded in the session id like this: {{{<sessionId>-<node>[.<jvmRoute>]}}} (e.g. {{{602F7397FBE4D9932E59A9D0E52FE178-n1}}} without a jvm route, with the jvm route {{{602F7397FBE4D9932E59A9D0E52FE178-n1.tomcat0}}})
-
-=== Isn't memcached a cache and might drop sessions ===
-TBD
