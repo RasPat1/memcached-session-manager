@@ -29,8 +29,19 @@ Starting with release 1.1 there are several session serialization strategies ava
 The configuration of tomcat requires two things: you need to drop some jars in your {{{$CATALINA_HOME/lib/}}} and {{{WEB-INF/lib/}}} directories and you have to configure the memcached session manager in the related {{{<Context>}}} element (e.g. in {{{$CATALINA_HOME/conf/context.xml}}}).
 
 == Add memcached-session-manager jars to tomcat ==
-Independent of the chosen serialization strategy you always need the [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager/ memcached-session-manager-${version}.jar] and either [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager-tc6/ memcached-session-manager-tc6-${version}.jar] for tomcat6 or [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager-tc7/ memcached-session-manager-tc7-${version}.jar] for tomcat7. Also the [http://code.google.com/p/spymemcached/downloads/detail?name=spymemcached-2.7.3.jar spymemcached-2.7.3.jar] is needed. If you're using membase, additionally [http://repo1.maven.org/maven2/org/codehaus/jettison/jettison/1.3.2/jettison-1.3.2.jar jettison-1.3.jar] and [http://repo1.maven.org/maven2/org/jboss/netty/netty/3.2.5.Final/netty-3.2.5.Final.jar netty-3.2.5.Final.jar] are required.
-Just download and put them in {{{$CATALINA_HOME/lib/}}}.
+Independent of the chosen serialization strategy you always need the [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager/ memcached-session-manager-${version}.jar] and either [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager-tc6/ memcached-session-manager-tc6-${version}.jar] for tomcat6 or [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager-tc7/ memcached-session-manager-tc7-${version}.jar] for tomcat7. 
+
+If you're using memcached or couchbase, you also need the [http://files.couchbase.com/maven2/spy/spymemcached/2.8.12/spymemcached-2.8.12.jar spymemcached-2.8.12.jar].
+
+If you're using couchbase, you need additionally these jars:
+[http://files.couchbase.com/maven2/couchbase/couchbase-client/1.1.4/couchbase-client-1.1.4.jar couchbase-client-1.1.4.jar],
+[http://repo1.maven.org/maven2/org/codehaus/jettison/jettison/1.1/jettison-1.1.jar jettison-1.1.jar], 
+[http://repo1.maven.org/maven2/commons-codec/commons-codec/1.5/commons-codec-1.5.jar commons-codec-1.5.jar], 
+[http://repo1.maven.org/maven2/org/apache/httpcomponents/httpcore/4.1.1/httpcore-4.1.1.jar httpcore-4.1.1.jar], 
+[http://repo1.maven.org/maven2/org/apache/httpcomponents/httpcore-nio/4.1.1/httpcore-nio-4.1.1.jar httpcore-nio-4.1.1.jar], 
+[http://repo1.maven.org/maven2/io/netty/netty/3.5.5.Final/netty-3.5.5.Final.jar netty-3.5.5.Final.jar].
+
+Please download the appropriate jars and put them in {{{$CATALINA_HOME/lib/}}}.
 
 == Add custom serializers to your webapp (optional) ==
 If you want to use java's built in serialization nothing more has to be done.
