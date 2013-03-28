@@ -31,10 +31,9 @@ The configuration of tomcat requires two things: you need to drop some jars in y
 == Add memcached-session-manager jars to tomcat ==
 Independent of the chosen serialization strategy you always need the [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager/ memcached-session-manager-${version}.jar] and either [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager-tc6/ memcached-session-manager-tc6-${version}.jar] for tomcat6 or [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager-tc7/ memcached-session-manager-tc7-${version}.jar] for tomcat7. 
 
-If you're using memcached or couchbase, you also need the [http://files.couchbase.com/maven2/spy/spymemcached/2.8.12/spymemcached-2.8.12.jar spymemcached-2.8.12.jar].
+If you're using memcached or couchbase, you also need the [http://files.couchbase.com/maven2/spy/spymemcached/2.8.12/spymemcached-2.8.12.jar spymemcached-2.8.12.jar] and [http://files.couchbase.com/maven2/couchbase/couchbase-client/1.1.4/couchbase-client-1.1.4.jar couchbase-client-1.1.4.jar].
 
 If you're using couchbase, you need additionally these jars:
-[http://files.couchbase.com/maven2/couchbase/couchbase-client/1.1.4/couchbase-client-1.1.4.jar couchbase-client-1.1.4.jar],
 [http://repo1.maven.org/maven2/org/codehaus/jettison/jettison/1.1/jettison-1.1.jar jettison-1.1.jar], 
 [http://repo1.maven.org/maven2/commons-codec/commons-codec/1.5/commons-codec-1.5.jar commons-codec-1.5.jar], 
 [http://repo1.maven.org/maven2/org/apache/httpcomponents/httpcore/4.1.1/httpcore-4.1.1.jar httpcore-4.1.1.jar], 
