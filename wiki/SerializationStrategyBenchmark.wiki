@@ -1,5 +1,4 @@
 #summary A comparison of some of the memcached-session-manager serialization strategies performance wise.
-#labels Featured
 
 This page shows the results of the [http://github.com/magro/memcached-session-manager/tree/master/serializer-benchmark/ serializer-benchmark] that compares java, javolution based and kryo based serialization/deserialization times for a sample object graph (some persons, addresses, calendar objects etc.).
 
