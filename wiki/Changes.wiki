@@ -2,7 +2,7 @@
 #labels Featured
 
 = 1.6.4 to 1.6.5 =
- * [http://code.google.com/p/memcached-session-manager/issues/detail?id=153 #153]: Name Threads in BackupSessionService
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=153 #153]: Name Threads in !BackupSessionService
  * Improved logging for issue [http://code.google.com/p/memcached-session-manager/issues/detail?id=166 #166] "Could not find session in local session map"
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=159 #159]: Support context configured with cookies="false"
  * [https://github.com/magro/memcached-session-manager/commit/f6492d10 f6492d10] Updated tomcat versions to 6.0.37 and 7.0.40. ([https://github.com/magro/memcached-session-manager/pull/26 PR #26] by Hans-Joachim Kliemeck)
