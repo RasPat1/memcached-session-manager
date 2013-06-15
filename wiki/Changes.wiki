@@ -3,12 +3,12 @@
 
 = 1.6.4 to 1.6.5 =
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=153 #153]: Name Threads in !BackupSessionService
- * Improved logging for issue [http://code.google.com/p/memcached-session-manager/issues/detail?id=166 #166] "Could not find session in local session map"
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=159 #159]: Support context configured with cookies="false"
  * [https://github.com/magro/memcached-session-manager/commit/f6492d10 f6492d10] Updated tomcat versions to 6.0.37 and 7.0.40. ([https://github.com/magro/memcached-session-manager/pull/26 PR #26] by Hans-Joachim Kliemeck)
  * [https://github.com/magro/memcached-session-manager/commit/d65ea3ff d65ea3ff] Support multiple couchbase configuration nodes ([https://github.com/magro/memcached-session-manager/pull/25 PR #25] by Hans-Joachim Kliemeck)
  * [https://github.com/magro/memcached-session-manager/commit/891106d7 891106d7] Additional check of requested context on host level - support msm in parallel to context without msm ([https://github.com/magro/memcached-session-manager/pull/24 PR #24] by Hans-Joachim Kliemeck)
  * [https://github.com/magro/memcached-session-manager/commit/86a215c4 86a215c4] Remove valve on shutdown, otherwise it will remain on the main container - Support redeploys ([https://github.com/magro/memcached-session-manager/pull/24 PR #24] by Hans-Joachim Kliemeck)
+ * Improved logging for issue [http://code.google.com/p/memcached-session-manager/issues/detail?id=166 #166] "Could not find session in local session map"
 
 = 1.6.3 to 1.6.4 =
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=126 #126]: Switch to new !CouchbaseClient API (by Hans-Joachim Kliemeck)
