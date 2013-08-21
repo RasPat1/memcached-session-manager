@@ -26,7 +26,7 @@ So what needs to be done for this?
 Starting with release 1.1 there are several session serialization strategies available, as they are described on SerializationStrategies. The default strategy uses java serialization and is already provided by the memcached-session-manager jar. Other strategies are provided by separate jars, in the section below you'll see which jars are required for which strategy.
 
 = Configure tomcat =
-The configuration of tomcat requires two things: you need to drop some jars in your {{{$CATALINA_HOME/lib/}}} and {{{WEB-INF/lib/}}} directories and you have to configure the memcached session manager in the related {{{<Context>}}} element (e.g. in {{{$CATALINA_HOME/conf/context.xml}}}).
+The configuration of tomcat requires two things: you need to drop some jars in your {{{$CATALINA_HOME/lib/}}} and {{{WEB-INF/lib/}}} directories and you have to configure the memcached session manager in the related {{{<Context>}}} element (e.g. in {{{META-INF/context.xml}}} inside the application files).
 
 == Add memcached-session-manager jars to tomcat ==
 Independent of the chosen serialization strategy you always need the [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager/ memcached-session-manager-${version}.jar] and either [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager-tc6/ memcached-session-manager-tc6-${version}.jar] for tomcat6 or [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager-tc7/ memcached-session-manager-tc7-${version}.jar] for tomcat7. 
@@ -66,7 +66,7 @@ If you're not using a dependency management based on maven repositories these ar
   * flexjson-serializer: [http://repo1.maven.org/maven2/de/javakaffee/msm/msm-flexjson-serializer/ msm-flexjson-serializer], [http://repo1.maven.org/maven2/net/sf/flexjson/flexjson/ flexjson]
 
 == Configure memcached-session-manager as  {{{<Context>}}} Manager ==
-Update the {{{<Context>}}} element (in {{{$CATALINA_HOME/conf/context.xml}}} or what else you choose for context definition, please check the related [http://tomcat.apache.org/tomcat-7.0-doc/config/context.html#Defining_a_context tomcat documentation] for this) so that it contains the {{{Manager}}} configuration for the memcached-session-manager, like in the examples below.
+Update the {{{<Context>}}} element (in {{{META-INF/context.xml}}} or what else you choose for context definition, please check the related [http://tomcat.apache.org/tomcat-7.0-doc/config/context.html#Defining_a_context tomcat documentation] for this) so that it contains the {{{Manager}}} configuration for the memcached-session-manager, like in the examples below.
 
 The following examples show configurations for sticky sessions and non-sticky sessions with memcached servers and for non-sticky sessions with membase. The examples with memcached servers assume that there are two memcacheds running, one on host1 and another one on host2. All sample configurations assume that you want to use kryo based serialization.
 
