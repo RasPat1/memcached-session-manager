@@ -31,9 +31,10 @@ The configuration of tomcat requires two things: you need to drop some jars in y
 == Add memcached-session-manager jars to tomcat ==
 Independent of the chosen serialization strategy you always need the [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager/ memcached-session-manager-${version}.jar] and either [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager-tc6/ memcached-session-manager-tc6-${version}.jar] for tomcat6 or [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager-tc7/ memcached-session-manager-tc7-${version}.jar] for tomcat7. 
 
-If you're using memcached or couchbase, you also need the [http://files.couchbase.com/maven2/spy/spymemcached/2.8.12/spymemcached-2.8.12.jar spymemcached-2.8.12.jar] and [http://files.couchbase.com/maven2/couchbase/couchbase-client/1.1.4/couchbase-client-1.1.4.jar couchbase-client-1.1.4.jar].
+If you're using memcached, you also need the [http://repo1.maven.org/maven2/net/spy/spymemcached/2.10.2/spymemcached-2.10.2.jar spymemcached-2.10.2.jar].
 
 If you're using couchbase, you need additionally these jars:
+[http://central.maven.org/maven2/com/couchbase/client/couchbase-client/1.2.2/couchbase-client-1.2.2.jar couchbase-client-1.2.2.jar]
 [http://repo1.maven.org/maven2/org/codehaus/jettison/jettison/1.1/jettison-1.1.jar jettison-1.1.jar], 
 [http://repo1.maven.org/maven2/commons-codec/commons-codec/1.5/commons-codec-1.5.jar commons-codec-1.5.jar], 
 [http://repo1.maven.org/maven2/org/apache/httpcomponents/httpcore/4.1.1/httpcore-4.1.1.jar httpcore-4.1.1.jar], 
@@ -52,7 +53,7 @@ As msm is available in maven central (under groupId {{{de.javakaffee.msm}}}) you
 <dependency>
     <groupId>de.javakaffee.msm</groupId>
     <artifactId>msm-kryo-serializer</artifactId>
-    <version>1.6.5</version>
+    <version>1.7.0</version>
     <scope>runtime</scope>
 </dependency>
 }}}
@@ -60,7 +61,7 @@ As msm is available in maven central (under groupId {{{de.javakaffee.msm}}}) you
 For javolution the artifactId is {{{msm-javolution-serializer}}}, for xstream {{{msm-xstream-serializer}}} and for flexjson it's {{{msm-flexjson-serializer}}}.
 
 If you're not using a dependency management based on maven repositories these are the jars you need for the different serializers:
-  * kryo-serializer: [http://repo1.maven.org/maven2/de/javakaffee/msm/msm-kryo-serializer/ msm-kryo-serializer], [http://repo1.maven.org/maven2/de/javakaffee/kryo-serializers/0.10/ kryo-serializers-0.10] (0.10 is needed, as 0.20+ is for kryo2), [http://repo1.maven.org/maven2/com/googlecode/kryo/ kryo], [http://repo1.maven.org/maven2/com/googlecode/minlog/ minlog], [http://repo1.maven.org/maven2/com/googlecode/reflectasm/ reflectasm], [http://repo1.maven.org/maven2/asm/asm/3.2/ asm-3.2]
+  * kryo-serializer: [http://repo1.maven.org/maven2/de/javakaffee/msm/msm-kryo-serializer/ msm-kryo-serializer], [http://repo1.maven.org/maven2/de/javakaffee/kryo-serializers/0.11/ kryo-serializers-0.11] (0.11 is needed, as 0.20+ is for kryo2), [http://repo1.maven.org/maven2/com/googlecode/kryo/ kryo], [http://repo1.maven.org/maven2/com/googlecode/minlog/ minlog], [http://repo1.maven.org/maven2/com/googlecode/reflectasm/ reflectasm], [http://repo1.maven.org/maven2/asm/asm/3.2/ asm-3.2]
   * javolution-serializer: [http://repo1.maven.org/maven2/de/javakaffee/msm/msm-javolution-serializer/ msm-javolution-serializer], [http://memcached-session-manager.googlecode.com/svn/maven/javolution/javolution/5.4.3.1/ javolution-5.4.3.1]
   * xstream-serializer: [http://repo1.maven.org/maven2/de/javakaffee/msm/msm-xstream-serializer/ msm-xstream-serializer], [http://repo1.maven.org/maven2/com/thoughtworks/xstream/xstream/ xstream], [http://repo1.maven.org/maven2/xmlpull/xmlpull/ xmlpull], [http://repo1.maven.org/maven2/xpp3/xpp3_min/ xpp3_min]
   * flexjson-serializer: [http://repo1.maven.org/maven2/de/javakaffee/msm/msm-flexjson-serializer/ msm-flexjson-serializer], [http://repo1.maven.org/maven2/net/sf/flexjson/flexjson/ flexjson]
@@ -194,6 +195,7 @@ _customConverter_ (since 1.2, optional)
     ** {{{de.javakaffee.web.msm.serializer.kryo.WicketSerializerFactory}}}: required if you're running a wicket web application.
     ** {{{de.javakaffee.web.msm.serializer.kryo.FacesLRUMapRegistration}}}: Needed if kryo serialization shall be used in combination with JSF2/Mojarra (see also [http://code.google.com/p/memcached-session-manager/issues/detail?id=97 issue #97]).
     ** {{{de.javakaffee.web.msm.serializer.kryo.GrailsFlashScopeRegistration}}}: Support for grails flash scope (see also [http://code.google.com/p/memcached-session-manager/issues/detail?id=107 issue #107]).
+    ** {{{de.javakaffee.web.msm.serializer.kryo.SpringSecurityUserRegistration}}}: Support for Spring Security User class (see also [http://code.google.com/p/memcached-session-manager/issues/detail?id=145 issue #145]).
   ** Javolution (converters provided by msm-javolution-serializer jar)
     ** {{{de.javakaffee.web.msm.serializer.javolution.JodaDateTimeFormat}}}: A more efficient serialization of Joda's [http://joda-time.sourceforge.net/api-release/index.html?org/joda/time/DateTime.html DateTime], see also [http://code.google.com/p/memcached-session-manager/issues/detail?id=32 issue #32].
     ** {{{de.javakaffee.web.msm.serializer.javolution.CGLibProxyFormat}}} : serializes/deserializes CGLIB proxies, see also [http://code.google.com/p/memcached-session-manager/issues/detail?id=59 issue #59].
@@ -204,7 +206,14 @@ _enableStatistics_ (since 1.2, optional, default _true_)
 
 _enabled_ (since 1.4.0, optional, default _true_)
  Specifies if session storage in memcached is enabled or not, can also be changed at runtime via JMX. Only allowed in sticky mode.<br/>
-<br/>
+
+== Overview over available system properties (all optional) ==
+
+_msm.maxReconnectDelay_ (since 1.7, default _30_)
+ The max reconnect delay for the !MemcachedClient, in seconds.
+
+_msm.nodeAvailabilityCacheTTL_ (since 1.7, default _1000_)
+ The TTL for NodeAvailabilityCache entries, in millis.
 
 = Configure logging =
 If you want to enable fine grained / debug logging you can add
