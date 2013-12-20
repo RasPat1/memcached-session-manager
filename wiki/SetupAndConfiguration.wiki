@@ -210,10 +210,10 @@ _enabled_ (since 1.4.0, optional, default _true_)
 == Overview over available system properties (all optional) ==
 
 _msm.maxReconnectDelay_ (since 1.7, default _30_)
- The max reconnect delay for the !MemcachedClient, in seconds.
+ The max reconnect delay for the spymemcached !MemcachedClient, in seconds.
 
 _msm.nodeAvailabilityCacheTTL_ (since 1.7, default _1000_)
- The TTL for NodeAvailabilityCache entries, in millis.
+ The TTL for msm !NodeAvailabilityCache entries, in millis.
 
 = Configure logging =
 If you want to enable fine grained / debug logging you can add
