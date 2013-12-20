@@ -1,6 +1,17 @@
 #summary This page lists changes for each release of memcached-session-manager.
 #labels Featured
 
+= 1.6.5 to 1.7.0 =
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=185 #185]: Locale is not serialized properly with jdk7
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=104 #104]: Sessions expired in memcached with very high webapp session timeout (e.g. 1 year)
+ * [https://github.com/magro/memcached-session-manager/commit/8de1011a 8de1011a]: Make memcached client maxReconnectDelay configurable via sys prop "msm.maxReconnectDelay"
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=75 #75]: Tomcat7: check/implement support of async/comet requests
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=177 #177]: msm requires couchbase jars even when not using couchbase
+ * [https://github.com/magro/memcached-session-manager/commit/17c357df 17c357df]: Update spymemcached to 2.10.2 and couchbase-client to 1.2.2
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=145 #145]: Add customConverter for Spring Security User class.
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=174 #174]: sessions lost on Tomcat 7 reload
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=167 #167]: Node failure handling fails due to spymemcached 2.7.3 to 2.8.12 update - use !FailureMode.Redistribute for Couchbase ([https://github.com/magro/memcached-session-manager/pull/27 PR #27] by Hans-Joachim Kliemeck)
+
 = 1.6.4 to 1.6.5 =
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=153 #153]: Name Threads in !BackupSessionService
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=159 #159]: Support context configured with cookies="false"
