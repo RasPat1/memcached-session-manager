@@ -1,6 +1,19 @@
 #summary This page lists changes for each release of memcached-session-manager.
 #labels Featured
 
+= 1.7.0 to 1.8.0 =
+
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=173 #173]: Support multiple contexts sharing the same session id
+ * [https://github.com/magro/memcached-session-manager/commit/87c19da 87c19da]: Rename kryo sys prop names {{{*.buffersize.*}}} to {{{*.bufferSize.*}}}
+ * [https://github.com/magro/memcached-session-manager/commit/f1f9f0a f1f9f0a]: Create kryo default serializer via a factory method ([https://github.com/magro/memcached-session-manager/pull/37 PR #37] by Marcus Thiesen)
+ * [https://github.com/magro/memcached-session-manager/commit/83d9289 83d9289]: Delete Sessions which cause deserialization errors ([https://github.com/magro/memcached-session-manager/pull/36 PR #36] by Marcus Thiesen)
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=137 #137]: Fixed "Found no validity info for session" warnings after invalidating session
+ * [https://github.com/magro/memcached-session-manager/commit/e160499 e160499]: Add samples that can be run with tomcat maven plugin, see [https://github.com/magro/memcached-session-manager/tree/master/samples msm sample apps]
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=193 #193]: Support Hibernate 4 in addition to Hibernate 3 in Kryo !HibernateCollectionsSerializerFactory ([https://github.com/magro/memcached-session-manager/pull/34 PR #34] by Cyrille Le Clerc)
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=192 #192]: After tomcat failover a session may be stored in a failoverNode while other nodes are available
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=190 #190]: !updateExpirationInMemcached prints negative !memcachedExpirationTime
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=168 #168]: Add tomcat8 support, thanx at Hans-Joachim Kliemeck and Cyrille Le Clerc for their initial contributions ([https://github.com/magro/memcached-session-manager/pull/28 PR #28], [https://github.com/magro/memcached-session-manager/pull/30 PR #30])
+
 = 1.6.5 to 1.7.0 =
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=185 #185]: Locale is not serialized properly with jdk7
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=104 #104]: Sessions expired in memcached with very high webapp session timeout (e.g. 1 year)
