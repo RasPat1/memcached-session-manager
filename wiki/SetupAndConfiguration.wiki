@@ -5,7 +5,7 @@
 
 = Introduction =
 
-For the most simple integration you just need to have a tomcat (6 or 7) and a memcached installed (or s.th. supporting the memcached protocol).
+For the most simple integration you just need to have a tomcat (6, 7 or 8) and a memcached installed (or s.th. supporting the memcached protocol).
 In your production environment you probably will have several tomcats and you should also have several memcached nodes available, on different pieces of hardware. You can use sticky sessions or non-sticky sessions, memcached-session-manager (msm) supports both operation modes.
 
 The following description shows an example for a setup with sticky sessions, with two instances of tomcat and two instances of memcached installed.
@@ -23,13 +23,13 @@ Tomcat-1 (t1) will primarily store it's sessions in memcached-2 (m2) which is ru
 So what needs to be done for this?
 
 = Decide which serialization strategy to use =
-Starting with release 1.1 there are several session serialization strategies available, as they are described on SerializationStrategies. The default strategy uses java serialization and is already provided by the memcached-session-manager jar. Other strategies are provided by separate jars, in the section below you'll see which jars are required for which strategy.
+There are several session serialization strategies available, as they are described on SerializationStrategies. The default strategy uses java serialization and is already provided by the memcached-session-manager jar. Other strategies are provided by separate jars, in the section below you'll see which jars are required for which strategy.
 
 = Configure tomcat =
 The configuration of tomcat requires two things: you need to drop some jars in your {{{$CATALINA_HOME/lib/}}} and {{{WEB-INF/lib/}}} directories and you have to configure the memcached session manager in the related {{{<Context>}}} element (e.g. in {{{META-INF/context.xml}}} inside the application files).
 
 == Add memcached-session-manager jars to tomcat ==
-Independent of the chosen serialization strategy you always need the [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager/ memcached-session-manager-${version}.jar] and either [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager-tc6/ memcached-session-manager-tc6-${version}.jar] for tomcat6 or [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager-tc7/ memcached-session-manager-tc7-${version}.jar] for tomcat7. 
+Independent of the chosen serialization strategy you always need the [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager/ memcached-session-manager-${version}.jar] and either [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager-tc6/ memcached-session-manager-tc6-${version}.jar] for tomcat6, [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager-tc7/ memcached-session-manager-tc7-${version}.jar] for tomcat7 or  [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager-tc8/ memcached-session-manager-tc8-${version}.jar] for tomcat8. 
 
 If you're using memcached, you also need the [http://repo1.maven.org/maven2/net/spy/spymemcached/2.10.2/spymemcached-2.10.2.jar spymemcached-2.10.2.jar].
 
@@ -53,7 +53,7 @@ As msm is available in maven central (under groupId {{{de.javakaffee.msm}}}) you
 <dependency>
     <groupId>de.javakaffee.msm</groupId>
     <artifactId>msm-kryo-serializer</artifactId>
-    <version>1.7.0</version>
+    <version>1.8.0</version>
     <scope>runtime</scope>
 </dependency>
 }}}
@@ -71,6 +71,7 @@ Update the {{{<Context>}}} element (in {{{META-INF/context.xml}}} or what else y
 
 The following examples show configurations for sticky sessions and non-sticky sessions with memcached servers and for non-sticky sessions with membase. The examples with memcached servers assume that there are two memcacheds running, one on host1 and another one on host2. All sample configurations assume that you want to use kryo based serialization.
 
+==== Example for sticky sessions + kryo ====
 The following example shows the configuration of the first tomcat, assuming that it runs on host1, together with memcached "n1". The attribute {{{failoverNodes="n1"}}} tells msm to store sessions preferably in memcached "n2" and only store sessions in "n1" (running on the same host/machine) if no other memcached node (here only n2) is available (even if host1 goes down completely, the session is still available in memcached "n2" and could be served by the tomcat on host2). For the second tomcat (on host2) you just need to change the failover node to "n2", so that it prefers the memcached "n1". Everything else should be left unchanged.
 {{{
 <Context>
@@ -84,6 +85,7 @@ The following example shows the configuration of the first tomcat, assuming that
 </Context>
 }}}
 
+==== Example for non-sticky sessions + kryo ====
 The following example shows a configuration for non-sticky sessions. In this case there's no need for {{{failoverNodes}}}, as sessions are served by all tomcats round-robin and they're not bound to a single tomcat. For non-sticky sessions the configuration (for both/all tomcats) would look like this:
 
 {{{
@@ -100,6 +102,7 @@ The following example shows a configuration for non-sticky sessions. In this cas
 </Context>
 }}}
 
+==== Example for non-sticky sessions with couchbase + kryo ====
 To connect to a membase bucket "bucket1" the configuration would look like this:
 {{{
 <Context>
@@ -116,6 +119,23 @@ To connect to a membase bucket "bucket1" the configuration would look like this:
     />
 </Context>
 }}}
+
+
+==== Example for multiple contexts sharing the same session id ====
+If you are running multiple webapps/contexts sharing the same session id (e.g. by having set {{{sessionCookiePath="/"}}} - or {{{emptySessionPath="true"}}} in tomcat 6) you must tell memcached session manager to add a prefix to the session id when storing a session in memcached. For this you can use the {{{storageKeyPrefix}}} attribute as shown by this example (see also the more detailed attribute description below):
+{{{
+<Context sessionCookiePath="/">
+  ...
+  <Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
+    memcachedNodes="n1:host1.yourdomain.com:11211,n2:host2.yourdomain.com:11211"
+    failoverNodes="n1"
+    storageKeyPrefix="context"
+    requestUriIgnorePattern=".*\.(ico|png|gif|jpg|css|js)$"
+    transcoderFactoryClass="de.javakaffee.web.msm.serializer.kryo.KryoTranscoderFactory"
+    />
+</Context>
+}}}
+
 
 More details for all configuration attributes are provided in the section below.
 
@@ -171,6 +191,23 @@ _sessionBackupTimeout_ (optional, default _100_)
 _operationTimeout_ (since 1.6.0, optional, default _1000_)
  The memcached operation timeout used at various places, e.g. used for the spymemcached !ConnectionFactory.
 
+_storageKeyPrefix_ (since 1.8.0, optional, default _webappVersion_)
+ Allows to configure a prefix that's added to the session id when a session is stored in memcached. This is useful if there are multiple webapps sharing the same session id, e.g. because contexts are configured with {{{sessionCookiePath="/"}}} (tomcat 7, or {{{emptySessionPath="true"}}} in tomcat 6)
+
+ When tomcats [http://tomcat.apache.org/tomcat-7.0-doc/config/context.html#Parallel_deployment parallel deployment] is used there are also multiple webapps sharing the same session id. This is supported by default, because the default value (if {{{storageKeyPrefix}}} is not set explicitely) is {{{webappVersion}}}, so that the webapp version is used as prefix for the session id / key in memcached.
+
+ The {{{storageKeyPrefix}}} attribute supports both a static prefix ({{{static:somePrefix}}}) and dynamic values ({{{host}}}, {{{context}}}, {{{webappVersion}}}), multiple values can be specified seperated by comma.
+
+ Here are some examples that demonstrate which config would create which storage key (for a session id "foo" with context path "ctxt" and host "hst"):
+  ** {{{static:x}}} -> {{{x_foo}}}
+  ** {{{host}}} -> {{{hst_foo}}}
+  ** {{{host.hash}}} -> {{{e93c085e_foo}}}
+  ** {{{context}}} -> {{{ctxt_foo}}}
+  ** {{{context.hash}}} -> {{{45e6345f_foo}}}
+  ** {{{host,context}}} -> {{{hst:ctxt_foo}}}
+  ** {{{webappVersion}}} -> {{{001_foo}}}
+  ** {{{host.hash,context.hash,webappVersion}}} -> {{{e93c085e:45e6345f:001_foo}}}
+
 _sessionAttributeFilter_ (since 1.5.0, optional)
  A regular expression to control which session attributes are serialized to memcached. The regular expression is evaluated with session attribute names. E.g. {{{sessionAttributeFilter="^(userName|sessionHistory)$"}}} specifies that only "userName" and "sessionHistory" attributes are stored in memcached. Works independently from the chosen serialization strategy.
 
@@ -218,6 +255,19 @@ _msm.maxReconnectDelay_ (since 1.7, default _30_)
 
 _msm.nodeAvailabilityCacheTTL_ (since 1.7, default _1000_)
  The TTL for msm !NodeAvailabilityCache entries, in millis.
+
+_msm.kryo.bufferSize.initial_ (since 1.1, default _102400_)
+ The initial size in bytes of the kryo object buffer when (de)serializing a session. Is passed as {{{initialCapacity}}} when creating a kryo [http://kryo.googlecode.com/svn/api/v1/com/esotericsoftware/kryo/ObjectBuffer.html#ObjectBuffer(com.esotericsoftware.kryo.Kryo,%20int,%20int) ObjectBuffer].
+
+_msm.kryo.bufferSize.max_ (since 1.1, default _2048000_)
+ The maximum size in bytes of the kryo object buffer when (de)serializing a session - the maximum size in bytes that a serialized session can take. Is passed as {{{maxCapacity}}} when creating a kryo [http://kryo.googlecode.com/svn/api/v1/com/esotericsoftware/kryo/ObjectBuffer.html#ObjectBuffer(com.esotericsoftware.kryo.Kryo,%20int,%20int) ObjectBuffer].
+
+_msm.kryo.defaultSerializerFactory_ (since 1.8, default _de.javakaffee.web.msm.serializer.kryo.ReferenceFieldSerializerFactory_)
+ The factory to create the Serializer used by Kryo when [http://kryo.googlecode.com/svn/api/v1/com/esotericsoftware/kryo/Kryo.html#newDefaultSerializer(java.lang.Class) Kryo#newDefaultSerializer] is called. Must implement {{{de.javakaffee.web.msm.serializer.kryo.KryoDefaultSerializerFactory}}}.
+
+ Currently available implementations:
+  ** {{{de.javakaffee.web.msm.serializer.kryo.ReferenceFieldSerializerFactory}}}: Factory to create a [http://kryo.googlecode.com/svn/api/v1/com/esotericsoftware/kryo/serialize/ReferenceFieldSerializer.html ReferenceFieldSerializer], handling object references and cyclic graphs.
+  ** {{{de.javakaffee.web.msm.serializer.kryo.CompatibleFieldSerializerFactory}}}: Factory to create a [http://kryo.googlecode.com/svn/api/v1/com/esotericsoftware/kryo/serialize/CompatibleFieldSerializer.html CompatibleFieldSerializer], with limited support for forward and backward compatibility.
 
 = Configure logging =
 If you want to enable fine grained / debug logging you can add
