@@ -1,7 +1,7 @@
 #summary This page lists changes for each release of memcached-session-manager.
 #labels Featured
 
-= 1.7.0 to 1.8.0 =
+= 1.7.0 to 1.8.0 <font color="grey" size="3">(2014-01-31)</font> =
 
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=173 #173]: Support multiple contexts sharing the same session id, add {{{storageKeyPrefix}}} configuration attribute
  * [https://github.com/magro/memcached-session-manager/commit/87c19da 87c19da]: Rename kryo system property names {{{*.buffersize.*}}} to {{{*.bufferSize.*}}}
@@ -14,7 +14,7 @@
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=190 #190]: updateExpirationInMemcached prints negative memcachedExpirationTime
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=168 #168]: Add tomcat8 support, thanx at Hans-Joachim Kliemeck and Cyrille Le Clerc for their initial contributions ([https://github.com/magro/memcached-session-manager/pull/28 PR #28], [https://github.com/magro/memcached-session-manager/pull/30 PR #30])
 
-= 1.6.5 to 1.7.0 =
+= 1.6.5 to 1.7.0 <font color="grey" size="3">(2013-12-21)</font> =
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=185 #185]: Locale is not serialized properly with jdk7
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=104 #104]: Sessions expired in memcached with very high webapp session timeout (e.g. 1 year)
  * [https://github.com/magro/memcached-session-manager/commit/8de1011a 8de1011a]: Make memcached client maxReconnectDelay configurable via sys prop "msm.maxReconnectDelay"
@@ -26,7 +26,7 @@
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=174 #174]: sessions lost on Tomcat 7 reload
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=167 #167]: Node failure handling fails due to spymemcached 2.7.3 to 2.8.12 update - use !FailureMode.Redistribute for Couchbase ([https://github.com/magro/memcached-session-manager/pull/27 PR #27] by Hans-Joachim Kliemeck)
 
-= 1.6.4 to 1.6.5 =
+= 1.6.4 to 1.6.5 <font color="grey" size="3">(2013-06-15)</font> =
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=153 #153]: Name Threads in !BackupSessionService
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=159 #159]: Support context configured with cookies="false"
  * [https://github.com/magro/memcached-session-manager/commit/f6492d10 f6492d10] Updated tomcat versions to 6.0.37 and 7.0.40. ([https://github.com/magro/memcached-session-manager/pull/26 PR #26] by Hans-Joachim Kliemeck)
@@ -35,7 +35,7 @@
  * [https://github.com/magro/memcached-session-manager/commit/86a215c4 86a215c4] Support redeploys: Remove valve on shutdown, otherwise it will remain on the main container ([https://github.com/magro/memcached-session-manager/pull/24 PR #24] by Hans-Joachim Kliemeck)
  * Improved logging for issue [http://code.google.com/p/memcached-session-manager/issues/detail?id=166 #166] "Could not find session in local session map"
 
-= 1.6.3 to 1.6.4 =
+= 1.6.3 to 1.6.4 <font color="grey" size="3">(2013-03-18)</font> =
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=126 #126]: Switch to new !CouchbaseClient API (by Hans-Joachim Kliemeck)
  * [https://github.com/magro/memcached-session-manager/commit/095b6fe7 095b6fe7] Fixed problem with detecting session ID if response contains multiple Set-Cookie headers. This patch works with both Tomcat6 and 7. (by Andrew !McNair)
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=152 #152]: Using msm tc6/7 in maven plugins like tomcat7-maven-plugin tomcat deps are pulled in (by Maciej Hryniszak)
