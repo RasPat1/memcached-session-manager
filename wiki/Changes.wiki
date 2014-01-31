@@ -3,7 +3,7 @@
 
 = 1.7.0 to 1.8.0 <font color="grey" size="3">(2014-01-31)</font> =
 
- * [http://code.google.com/p/memcached-session-manager/issues/detail?id=173 #173]: Support multiple contexts sharing the same session id (includes tomcats parallel deployment), add {{{storageKeyPrefix}}} configuration attribute (see [https://code.google.com/p/memcached-session-manager/wiki/SetupAndConfiguration#Overview_over_memcached-session-manager_configuration_attributes SetupAndConfiguration] for usage)
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=173 #173]: Support multiple contexts sharing the same session id (includes tomcats parallel deployment) - add {{{storageKeyPrefix}}} configuration attribute (see [https://code.google.com/p/memcached-session-manager/wiki/SetupAndConfiguration#Overview_over_memcached-session-manager_configuration_attributes SetupAndConfiguration] for usage)
  * [https://github.com/magro/memcached-session-manager/commit/87c19da 87c19da]: Rename kryo system property names {{{*.buffersize.*}}} to {{{*.bufferSize.*}}}
  * [https://github.com/magro/memcached-session-manager/commit/f1f9f0a f1f9f0a]: Create kryo default serializer via a factory method, configurable via the system property {{{msm.kryo.defaultSerializerFactory}}} ([https://github.com/magro/memcached-session-manager/pull/37 PR #37] by Marcus Thiesen)
  * [https://github.com/magro/memcached-session-manager/commit/83d9289 83d9289]: Delete Sessions which cause deserialization errors ([https://github.com/magro/memcached-session-manager/pull/36 PR #36] by Marcus Thiesen)
