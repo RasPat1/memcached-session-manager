@@ -262,7 +262,7 @@ _msm.kryo.bufferSize.initial_ (since 1.1, default _102400_)
 _msm.kryo.bufferSize.max_ (since 1.1, default _2048000_)
  The maximum size in bytes of the kryo object buffer when (de)serializing a session - the maximum size in bytes that a serialized session can take. Is passed as {{{maxCapacity}}} when creating a kryo [http://kryo.googlecode.com/svn/api/v1/com/esotericsoftware/kryo/ObjectBuffer.html#ObjectBuffer(com.esotericsoftware.kryo.Kryo,%20int,%20int) ObjectBuffer].
 
-_msm.kryo.defaultSerializerFactory_ (since 1.8, default _de.javakaffee.web.msm.serializer.kryo.ReferenceFieldSerializerFactory_)
+_msm.kryo.defaultSerializerFactory_ (since 1.8, default _de.javakaffee.web.msm.serializer.kryo.!ReferenceFieldSerializerFactory_)
  The factory to create the Serializer used by Kryo when [http://kryo.googlecode.com/svn/api/v1/com/esotericsoftware/kryo/Kryo.html#newDefaultSerializer(java.lang.Class) Kryo#newDefaultSerializer] is called. Must implement {{{de.javakaffee.web.msm.serializer.kryo.KryoDefaultSerializerFactory}}}.
 
  Currently available implementations:
