@@ -31,14 +31,14 @@ The configuration of tomcat requires two things: you need to drop some jars in y
 == Add memcached-session-manager jars to tomcat ==
 Independent of the chosen serialization strategy you always need the [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager/ memcached-session-manager-${version}.jar] and either [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager-tc6/ memcached-session-manager-tc6-${version}.jar] for tomcat6, [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager-tc7/ memcached-session-manager-tc7-${version}.jar] for tomcat7 (attention: tomcat 7.0.23+) or  [http://repo1.maven.org/maven2/de/javakaffee/msm/memcached-session-manager-tc8/ memcached-session-manager-tc8-${version}.jar] for tomcat8. 
 
-If you're using memcached, you also need the [http://repo1.maven.org/maven2/net/spy/spymemcached/2.10.2/spymemcached-2.10.2.jar spymemcached-2.10.2.jar].
+If you're using memcached, you also need the [http://repo1.maven.org/maven2/net/spy/spymemcached/2.11.1/spymemcached-2.11.1.jar spymemcached-2.11.1.jar].
 
 If you're using couchbase, you need additionally these jars:
-[http://central.maven.org/maven2/com/couchbase/client/couchbase-client/1.2.2/couchbase-client-1.2.2.jar couchbase-client-1.2.2.jar]
-[http://repo1.maven.org/maven2/org/codehaus/jettison/jettison/1.1/jettison-1.1.jar jettison-1.1.jar], 
+[http://central.maven.org/maven2/com/couchbase/client/couchbase-client/1.4.0/couchbase-client-1.4.0.jar couchbase-client-1.4.0.jar]
+[http://repo1.maven.org/maven2/org/codehaus/jettison/jettison/1.3/jettison-1.3.jar jettison-1.3.jar], 
 [http://repo1.maven.org/maven2/commons-codec/commons-codec/1.5/commons-codec-1.5.jar commons-codec-1.5.jar], 
-[http://repo1.maven.org/maven2/org/apache/httpcomponents/httpcore/4.1.1/httpcore-4.1.1.jar httpcore-4.1.1.jar], 
-[http://repo1.maven.org/maven2/org/apache/httpcomponents/httpcore-nio/4.1.1/httpcore-nio-4.1.1.jar httpcore-nio-4.1.1.jar], 
+[http://repo1.maven.org/maven2/org/apache/httpcomponents/httpcore/4.3/httpcore-4.3.jar httpcore-4.3.jar], 
+[http://repo1.maven.org/maven2/org/apache/httpcomponents/httpcore-nio/4.3/httpcore-nio-4.3.jar httpcore-nio-4.3.jar], 
 [http://repo1.maven.org/maven2/io/netty/netty/3.5.5.Final/netty-3.5.5.Final.jar netty-3.5.5.Final.jar].
 
 Please download the appropriate jars and put them in {{{$CATALINA_HOME/lib/}}}.
