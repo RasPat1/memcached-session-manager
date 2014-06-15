@@ -1,6 +1,11 @@
 #summary This page lists changes for each release of memcached-session-manager.
 #labels Featured
 
+= 1.8.1 to 1.8.2 <font color="grey" size="3">(2014-06-16)</font> =
+
+ * [http://code.google.com/p/memcached-session-manager/issues/detail?id=208 #208] Add async support for tomcat8
+ * [https://github.com/magro/memcached-session-manager/commit/6873277a 6873277a]: Update library versions, specifically spymemcached to 2.11.1 and couchbase-client to 1.4.0 ([https://github.com/magro/memcached-session-manager/pull/41 PR #41] by Hans-Joachim Kliemeck)
+
 = 1.8.0 to 1.8.1 <font color="grey" size="3">(2014-02-02)</font> =
 
  * [http://code.google.com/p/memcached-session-manager/issues/detail?id=194 #194] Fix !NoSuchMethodError in !KryoTranscoderFactory on Tomcat 8 ([https://github.com/magro/memcached-session-manager/pull/38 PR #38] by Cyrille Le Clerc)
