@@ -1,0 +1,1 @@
+Jars are available on [maven central](http://repo1.maven.org/maven2/de/javakaffee/msm/).
